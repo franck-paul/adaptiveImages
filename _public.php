@@ -22,6 +22,12 @@ class dcAdaptiveImages
 	{
 		global $core;
 
+		// Do not transformation for feed and xlmrpc URLs
+		$excluded = array('feed','xmlrpc');
+		if (in_array($core->url->type,$excluded)) {
+			return;
+		}
+
 		$core->blog->settings->addNameSpace('adaptiveimages');
 		if ($core->blog->settings->adaptiveimages->enabled)
 		{
