@@ -14,7 +14,42 @@ if (!defined('DC_RC_PATH')) { return; }
 
 require_once dirname(__FILE__).'/inc/AdaptiveImages.php';
 
-$core->addBehavior('urlHandlerServeDocument',array('dcAdaptativeImages','urlHandlerServeDocument'));
+class MyAdaptiveImages extends AdaptiveImages
+{
+	protected $media_url = '';
+	protected $media_path = '';
+
+	protected function __construct(){
+		$this->media_url = $GLOBALS['core']->blog->settings->system->public_url;
+		$this->media_path = $GLOBALS['core']->blog->public_path;
+	}
+
+	static public function getInstance() {
+		return parent::getInstance();
+	}
+
+	protected function URL2filepath($url)
+	{
+		$path = parent::URL2filepath($url);
+		$base = $this->media_url;
+		if (strncmp($path,$base,strlen($base)) == 0) {
+			$path = $this->media_path.substr($path,strlen($base));
+		}
+		return $path;
+	}
+
+	protected function filepath2URL($filepath)
+	{
+		$url = parent::filepath2URL($filepath);
+		$base = $this->media_path;
+		if (strncmp($url,$base,strlen($base)) == 0) {
+			$url = $this->media_url.substr($url,strlen($base));
+		}
+		return $url;
+	}
+}
+
+$core->addBehavior('urlHandlerServeDocument',array('dcAdaptiveImages','urlHandlerServeDocument'));
 
 class dcAdaptiveImages
 {
@@ -32,12 +67,11 @@ class dcAdaptiveImages
 		if ($core->blog->settings->adaptiveimages->enabled)
 		{
 			$max_width_1x = (integer) $core->blog->settings->adaptiveimages->max_width_1x;
-
-			$AdaptiveImage = AdaptiveImages::getInstance();
+			$AdaptiveImages = MyAdaptiveImages::getInstance();
 
 			// Set properties
-			$AdaptiveImage->destDirectory = $core->blog->public_path.'/.adapt-img';
-			$cache_dir = path::real($AdaptiveImage->destDirectory,false);
+			$AdaptiveImages->destDirectory = $core->blog->public_path.'/.adapt-img/';
+			$cache_dir = path::real($AdaptiveImages->destDirectory,false);
 			if (!is_dir($cache_dir)) {
 				files::makeDir($cache_dir);
 			}
@@ -46,7 +80,7 @@ class dcAdaptiveImages
 			}
 
 			// Do transformation
-			$html = $AdaptiveImage->adaptHTMLPage($result['content'],($max_width_1x ? $max_width_1x : null));
+			$html = $AdaptiveImages->adaptHTMLPage($result['content'],($max_width_1x ? $max_width_1x : null));
 			$result['content'] = $html;
 		}
 	}
