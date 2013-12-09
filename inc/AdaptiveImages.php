@@ -2,7 +2,7 @@
 /**
  * AdaptiveImages
  *
- * @version    1.1.2
+ * @version    1.1.4
  * @copyright  2013
  * @author     Nursit
  * @licence    GNU/GPL3
@@ -521,6 +521,12 @@ class AdaptiveImages {
 		if (strncmp($src, "data:", 5)==0)
 			return $img;
 
+		$src = $this->URL2filepath($src);
+		if (!$src) return $img;
+
+		if ($srcMobile)
+			$srcMobile = $this->URL2filepath($srcMobile);
+
 		$images = array();
 		if ($w<end($bkpt))
 			$images[$w] = array(
@@ -528,10 +534,6 @@ class AdaptiveImages {
 				'15x' => $src,
 				'20x' => $src,
 			);
-
-		$src = $this->URL2filepath($src);
-		if ($srcMobile)
-			$srcMobile = $this->URL2filepath($srcMobile);
 
 		// don't do anyting if we can't find file
 		if (!file_exists($src))
@@ -545,7 +547,7 @@ class AdaptiveImages {
 			return $img;
 
 		// build images (or at least URLs of images) on breakpoints
-		$fallback = $src;	//var_dump(__LINE__,$fallback);
+		$fallback = $src;
 		$wfallback = $w;
 		$dpi = array('10x' => 1, '15x' => 1.5, '20x' => 2);
 		$wk = 0;
@@ -561,7 +563,7 @@ class AdaptiveImages {
 				}
 			}
 			if ($wk<=$maxWidth1x AND ($is_mobile OR !$srcMobile)){
-				$fallback = $images[$wk]['10x'];	//var_dump(__LINE__,$fallback);
+				$fallback = $images[$wk]['10x'];
 				$wfallback = $wk;
 			}
 		}
@@ -569,7 +571,7 @@ class AdaptiveImages {
 		// Build the fallback img : High-compressed JPG
 		// Start from the mobile version if available or from the larger version otherwise
 		if ($wk>$w && $w<$maxWidth1x){
-			$fallback = $images[$w]['10x'];	//var_dump(__LINE__,$fallback);
+			$fallback = $images[$w]['10x'];
 			$wfallback = $w;
 		}
 
@@ -647,7 +649,8 @@ class AdaptiveImages {
 		$medias = array();
 		$lastw = array_keys($bkptImages);
 		$lastw = end($lastw);
-		$wandroid = 0; $islast = false;
+		$wandroid = 0;
+		$islast = false;
 		foreach ($bkptImages as $w=>$files){
 			if ($w==$lastw) {$islast = true;}
 			if ($w<=$this->maxWidthMobileVersion) $wandroid = $w;
@@ -728,7 +731,7 @@ class AdaptiveImages {
 		}
 
 		// never process on remote img
-		if (preg_match(';^(\w{3,7}://);', $source)){
+		if (!$source OR preg_match(';^(\w{3,7}://);', $source)){
 			return array(0,0);
 		}
 
@@ -1191,7 +1194,7 @@ class AdaptiveImages {
 			$source = $this->URL2filepath($source);
 
 		// don't process distant images
-		if (preg_match(';^(\w{3,7}://);', $source)){
+		if (!$source OR preg_match(';^(\w{3,7}://);', $source)){
 			return false;
 		}
 
@@ -1205,7 +1208,7 @@ class AdaptiveImages {
 		if (!$extension_dest) return false;
 
 		if (@file_exists($source)){
-			list ($ret["largeur"],$ret["hauteur"]) = $this->imgSize($img);
+			list ($ret["largeur"],$ret["hauteur"]) = $this->imgSize(strpos($img,"width=")!==false?$img:$source);
 			$date_src = @filemtime($source);
 		}
 		else
