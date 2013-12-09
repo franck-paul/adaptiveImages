@@ -19,20 +19,18 @@ class MyAdaptiveImages extends AdaptiveImages
 	protected $media_url = '';
 	protected $media_path = '';
 
-	protected function __construct()
-	{
-		$this->media_url = $GLOBALS['core']->blog->settings->system->public_url;
+	protected function __construct(){
+		$this->media_url = rtrim($GLOBALS['core']->blog->settings->system->public_url,"/")."/";
 		$this->media_path = $GLOBALS['core']->blog->public_path;
-//		$this->media_path = $this->realPath2relativePath($this->media_path);
+		$this->media_path = $this->realPath2relativePath($this->media_path);
 	}
 
 	// translate to relative path if possible
 	public function realPath2relativePath($path)
 	{
-		$dir = dirname($_SERVER['SCRIPT_FILENAME']).'/';
-		if (strncmp($path,$dir,strlen($dir)) == 0) {
+		$dir = dirname($_SERVER['SCRIPT_FILENAME'])."/";
+		if (strncmp($path,$dir,strlen($dir)) == 0)
 			$path = substr($path,strlen($dir));
-		}
 		return $path;
 	}
 
@@ -45,8 +43,12 @@ class MyAdaptiveImages extends AdaptiveImages
 		$path = parent::URL2filepath($url);
 		$base = $this->media_url;
 		if (strncmp($path,$base,strlen($base)) == 0) {
-			$path = $this->media_path.substr($path,strlen($base));
-			$path = path::real($path);
+			$path = $this->media_path."/".ltrim(substr($path,strlen($base)),"/");
+			$path = str_replace("//","/",$path);
+		}
+		elseif (strncmp($url,"/",1) == 0 && isset($_SERVER['DOCUMENT_ROOT'])) {
+			$root = rtrim($_SERVER['DOCUMENT_ROOT'],"/");
+			$path = $root.$path;
 		}
 		return $path;
 	}
@@ -54,9 +56,13 @@ class MyAdaptiveImages extends AdaptiveImages
 	protected function filepath2URL($filepath)
 	{
 		$url = parent::filepath2URL($filepath);
-		$base = path::real($this->media_path);
+		$base = $this->media_path;
 		if (strncmp($url,$base,strlen($base)) == 0) {
 			$url = $this->media_url.substr($url,strlen($base));
+			$url = str_replace("//","/",$url);
+		}
+		elseif (isset($_SERVER['DOCUMENT_ROOT']) && $root = rtrim($_SERVER['DOCUMENT_ROOT'],"/") && strncmp($url,$root,strlen($root)) == 0) {
+			$url = substr($url,strlen($root));
 		}
 		return $url;
 	}
@@ -70,7 +76,7 @@ class dcAdaptiveImages
 	{
 		global $core;
 
-		// Don't make transformation for feed and xlmrpc URLs
+		// Do not transform for feed and xlmrpc URLs
 		$excluded = array('feed','xmlrpc');
 		if (in_array($core->url->type,$excluded)) {
 			return;
@@ -83,7 +89,7 @@ class dcAdaptiveImages
 			$AdaptiveImages = MyAdaptiveImages::getInstance();
 
 			// Set properties
-			$AdaptiveImages->destDirectory = $core->blog->settings->system->public_path.'/.adapt-img/';
+			$AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath($core->blog->public_path.'/.adapt-img/');
 			$cache_dir = path::real($AdaptiveImages->destDirectory,false);
 			if (!is_dir($cache_dir)) {
 				files::makeDir($cache_dir);
