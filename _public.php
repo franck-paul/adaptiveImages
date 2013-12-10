@@ -90,6 +90,7 @@ class dcAdaptiveImages
 
 			// Set properties
 			$AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath($core->blog->public_path.'/.adapt-img/');
+			$AdaptiveImages->onDemandImages = (boolean) $core->blog->settings->adaptiveimages->on_demand;
 			$cache_dir = path::real($AdaptiveImages->destDirectory,false);
 			if (!is_dir($cache_dir)) {
 				files::makeDir($cache_dir);
@@ -101,5 +102,23 @@ class dcAdaptiveImages
 			$html = $AdaptiveImages->adaptHTMLPage($result['content'],($max_width_1x ? $max_width_1x : null));
 			$result['content'] = $html;
 		}
+	}
+}
+
+class urlAdaptiveImages extends dcUrlHandlers
+{
+	public static function onDemand($args)
+	{
+		global $core;
+
+		$AdaptiveImages = MyAdaptiveImages::getInstance();
+		$AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath($core->blog->public_path.'/.adapt-img/');
+		try {
+			$AdaptiveImages->deliverBkptImage($args);
+		}
+		catch (Exception $e){
+			self::p404();
+		}
+		exit;
 	}
 }

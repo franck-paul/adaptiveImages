@@ -31,6 +31,9 @@ class adaptiveImagesBehaviors
 		form::field('adaptiveimages_max_width_1x',4,4,(integer) $settings->adaptiveimages->max_width_1x).
 		'</p>'.
 		'<p class="clear form-note">'.__('The default maximum display width for image 1x is 640 pixels.').'</p>'.
+		'<p><label for"adaptiveimages_on_demand" class="classic">'.
+		form::checkbox('adaptiveimages_on_demand','1',$settings->adaptiveimages->on_demand).
+		__('Deliver adaptive images on demand').'</label></p>'.
 		'</div>';
 	}
 
@@ -39,5 +42,6 @@ class adaptiveImagesBehaviors
 		$settings->addNameSpace('adaptiveimages');
 		$settings->adaptiveimages->put('enabled',!empty($_POST['adaptiveimages_enabled']),'boolean');
 		$settings->adaptiveimages->put('max_width_1x',abs((integer) $_POST['adaptiveimages_max_width_1x']),'integer');
+		$settings->adaptiveimages->put('on_demand',!empty($_POST['adaptiveimages_on_demand']),'boolean');
 	}
 }
