@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 adaptiveImages module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-05 15:43+0100\n"
+"POT-Creation-Date: 2013-12-10 12:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,26 +16,30 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hg-plugins/adaptiveImages//_admin.php:15
+#: ../hg-plugins/adaptiveImages/_admin.php:15
 msgid "Implements the 3-layers technique for Adaptive Images generation (by Nursit)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages//_admin.php:15
+#: ../hg-plugins/adaptiveImages/_admin.php:15
 msgid "adaptiveImages"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages//_admin.php:26
+#: ../hg-plugins/adaptiveImages/_admin.php:26
 msgid "Adaptive Images"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages//_admin.php:29
+#: ../hg-plugins/adaptiveImages/_admin.php:29
 msgid "Enable Adaptive Images"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages//_admin.php:30
-msgid "Maximum display width for images 1x:"
+#: ../hg-plugins/adaptiveImages/_admin.php:30
+msgid "Default maximum display width for images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages//_admin.php:33
-msgid "The default maximum display width for image 1x is 640 pixels."
+#: ../hg-plugins/adaptiveImages/_admin.php:33
+msgid "The Default maximum display width for images is 640 pixels."
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_admin.php:36
+msgid "Deliver adaptive images on demand"
 msgstr ""

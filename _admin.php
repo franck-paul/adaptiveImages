@@ -27,10 +27,10 @@ class adaptiveImagesBehaviors
 		'<p><label for"adaptiveimages_enabled" class="classic">'.
 		form::checkbox('adaptiveimages_enabled','1',$settings->adaptiveimages->enabled).
 		__('Enable Adaptive Images').'</label></p>'.
-		'<p><label for="adaptiveimages_max_width_1x" class="classic">'.__('Maximum display width for images 1x:').'</label> '.
+		'<p><label for="adaptiveimages_max_width_1x" class="classic">'.__('Default maximum display width for images:').'</label> '.
 		form::field('adaptiveimages_max_width_1x',4,4,(integer) $settings->adaptiveimages->max_width_1x).
 		'</p>'.
-		'<p class="clear form-note">'.__('The default maximum display width for image 1x is 640 pixels.').'</p>'.
+		'<p class="clear form-note">'.__('The Default maximum display width for images is 640 pixels.').'</p>'.
 		'<p><label for"adaptiveimages_on_demand" class="classic">'.
 		form::checkbox('adaptiveimages_on_demand','1',$settings->adaptiveimages->on_demand).
 		__('Deliver adaptive images on demand').'</label></p>'.
