@@ -65,6 +65,7 @@ class MyAdaptiveImages extends AdaptiveImages
 	 * By default just remove existing timestamp
 	 * Should be overriden depending of your URL mapping rules vs DOCUMENT_ROOT
 	 * can also remap Absolute URL of current website to filesystem path
+	 *
 	 * @param $url
 	 * @return string
 	 */
@@ -88,6 +89,7 @@ class MyAdaptiveImages extends AdaptiveImages
 	 * By default just add timestamp for webperf issue
 	 * Should be overriden depending of your URL mapping rules vs DOCUMENT_ROOT
 	 * can map URL on specific domain (domain sharding for Webperf purpose)
+	 *
 	 * @param $filepath
 	 * @return string
 	 */
@@ -155,21 +157,35 @@ class dcAdaptiveImages
 		$core->blog->settings->addNameSpace('adaptiveimages');
 		if ($core->blog->settings->adaptiveimages->enabled)
 		{
-			$max_width_1x = (integer) $core->blog->settings->adaptiveimages->max_width_1x;
-			$AdaptiveImages = MyAdaptiveImages::getInstance();
+			$ai = MyAdaptiveImages::getInstance();
 
 			// Set properties
-			$AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath($core->blog->public_path.'/.adapt-img/');
-			$AdaptiveImages->onDemandImages = (boolean) $core->blog->settings->adaptiveimages->on_demand;
-			$cache_dir = path::real($AdaptiveImages->destDirectory,false);
+			$ai->destDirectory = $ai->realPath2relativePath($core->blog->public_path.'/.adapt-img/');
+			$ai->onDemandImages = (boolean) $core->blog->settings->adaptiveimages->on_demand;
+
+			// Set options
+			if ($min_width_1x = (integer) $core->blog->settings->adaptiveimages->min_width_1x) {
+				$ai->minWidth1x = $min_width_1x;
+			}
+			if (($lowsrc_jpg_bgcolor = $core->blog->settings->adaptiveimages->lowsrc_jpg_bgcolor) != '') {
+				$ai->lowsrcJpgBgColor = $lowsrc_jpg_bgcolor;
+			}
+			if (($default_bkpts = $core->blog->settings->adaptiveimages->default_bkpts) != '') {
+				$ai->defaultBkpts = explode(',',$default_bkpts);
+			}
+
+			// Check cache directory
+			$cache_dir = path::real($ai->destDirectory,false);
 			if (!is_dir($cache_dir)) {
 				files::makeDir($cache_dir);
 			}
 			if (!is_writable($cache_dir)) {
 				throw new Exception('Adaptative Images cache directory is not writable.');
 			}
+
 			// Do transformation
-			$html = $AdaptiveImages->adaptHTMLPage($result['content'],($max_width_1x ? $max_width_1x : null));
+			$max_width_1x = (integer) $core->blog->settings->adaptiveimages->max_width_1x;
+			$html = $ai->adaptHTMLPage($result['content'],($max_width_1x ? $max_width_1x : null));
 			$result['content'] = $html;
 		}
 	}
