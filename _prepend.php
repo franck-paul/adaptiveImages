@@ -13,3 +13,5 @@
 if (!defined('DC_RC_PATH')) { return; }
 
 $core->url->register('adapt-img','adapt-img','^adapt-img/(.+)?$',array('urlAdaptiveImages','onDemand'));
+
+$__autoload['dcMaintenanceAdaptiveImages'] = dirname(__FILE__).'/_tasks.php';

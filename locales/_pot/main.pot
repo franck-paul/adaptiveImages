@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 adaptiveImages module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-14 15:54+0100\n"
+"POT-Creation-Date: 2013-12-17 09:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,90 +24,106 @@ msgstr ""
 msgid "adaptiveImages"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:109
+#: ../hg-plugins/adaptiveImages/_admin.php:121
 msgid "Adaptive Images"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:113
+#: ../hg-plugins/adaptiveImages/_admin.php:125
 msgid "Enable Adaptive Images"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:117
+#: ../hg-plugins/adaptiveImages/_admin.php:129
 msgid "Default maximum display width for images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:120
+#: ../hg-plugins/adaptiveImages/_admin.php:132
 msgid "The Default maximum display width for images is 640 pixels."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:121
+#: ../hg-plugins/adaptiveImages/_admin.php:133
 msgid "Default minimum display width for images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:124
+#: ../hg-plugins/adaptiveImages/_admin.php:136
 msgid "Smaller images will be unchanged (320 pixels by default)."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:126
+#: ../hg-plugins/adaptiveImages/_admin.php:138
 msgid "Backgound color for JPG images produced from transparent one:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:129
+#: ../hg-plugins/adaptiveImages/_admin.php:141
 msgid "Usually the same background color as your blog (#ffffff by default)."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:132
-msgid "Advanced options"
-msgstr ""
-
-#: ../hg-plugins/adaptiveImages/_admin.php:135
-msgid "Deliver adaptive images on demand"
-msgstr ""
-
-#: ../hg-plugins/adaptiveImages/_admin.php:136
-msgid "Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!"
-msgstr ""
-
-#: ../hg-plugins/adaptiveImages/_admin.php:138
-msgid "Breakpoints (in pixel) for image generation (comma saparated values):"
-msgstr ""
-
-#: ../hg-plugins/adaptiveImages/_admin.php:141
-msgid "By default: 160,320,480,640,960,1440."
-msgstr ""
-
-#: ../hg-plugins/adaptiveImages/_admin.php:142
+#: ../hg-plugins/adaptiveImages/_admin.php:145
 msgid "JPEG compression quality (0 to 100):"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:144
+#: ../hg-plugins/adaptiveImages/_admin.php:147
 msgid "Preview images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:146
+#: ../hg-plugins/adaptiveImages/_admin.php:149
 msgid "(10 by default)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:148
+#: ../hg-plugins/adaptiveImages/_admin.php:151
 msgid "Standard images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:150
+#: ../hg-plugins/adaptiveImages/_admin.php:153
 msgid "(75 by default)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:151
+#: ../hg-plugins/adaptiveImages/_admin.php:155
 msgid "1.5x images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:153
+#: ../hg-plugins/adaptiveImages/_admin.php:157
 msgid "(65 by default)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:154
+#: ../hg-plugins/adaptiveImages/_admin.php:159
 msgid "2x images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:156
+#: ../hg-plugins/adaptiveImages/_admin.php:161
 msgid "(45 by default)"
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_admin.php:163
+msgid "Advanced options"
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_admin.php:166
+msgid "Deliver adaptive images on demand"
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_admin.php:167
+msgid "Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!"
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_admin.php:169
+msgid "Breakpoints (in pixel) for image generation (comma saparated values):"
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_admin.php:172
+msgid "By default: 160,320,480,640,960,1440."
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_tasks.php:23
+msgid "Empty adaptive images cache directory"
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_tasks.php:24
+msgid "Adaptive images cache directory emptied."
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_tasks.php:25
+msgid "Failed to empty adaptive images cache directory."
+msgstr ""
+
+#: ../hg-plugins/adaptiveImages/_tasks.php:27
+msgid "It may be useful to empty this cache when modifying breakpoints or quality of JPEG compression. Notice : with some hosters, the adaptive images cache cannot be emptied with this plugin."
 msgstr ""

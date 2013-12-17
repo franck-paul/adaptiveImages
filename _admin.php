@@ -14,9 +14,12 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 // dead but useful code, in order to have translations
 __('adaptiveImages').__('Implements the 3-layers technique for Adaptive Images generation (by Nursit)');
 
+// Behaviours
+
 $core->addBehavior('adminBlogPreferencesHeaders',array('adaptiveImagesBehaviors','adminBlogPreferencesHeaders'));
 $core->addBehavior('adminBlogPreferencesForm',array('adaptiveImagesBehaviors','adminBlogPreferencesForm'));
 $core->addBehavior('adminBeforeBlogSettingsUpdate',array('adaptiveImagesBehaviors','adminBeforeBlogSettingsUpdate'));
+$core->addBehavior('dcMaintenanceInit', array('adaptiveImagesBehaviors', 'dcMaintenanceInit'));
 
 /**
  * Helper class used by behaviours callback
@@ -86,6 +89,15 @@ class adaptiveImagesHelpers
  */
 class adaptiveImagesBehaviors
 {
+	/**
+	 * dcMaintenanceInit Add cache emptying maintenance task
+	 * @param  dcMaintenance $maintenance
+	 */
+	public static function dcMaintenanceInit($maintenance)
+	{
+		$maintenance->addTask('dcMaintenanceAdaptiveImages');
+	}
+
 	/**
 	 * adminBlogPreferencesHeaders behaviour callback: include JS color picker in header
 	 *
