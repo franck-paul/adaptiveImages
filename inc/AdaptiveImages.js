@@ -9,8 +9,13 @@ function adaptImgFix(n){
 		})(document.documentElement)
 	}
 
+	// if adaptImgLazy add lazy class on <html>
+	if (adaptImgLazy) {
+		htmlAddClass('lazy');
+	}
+
 	// Android 2 media-queries bad support workaround
-	// muliple rules = multiples downloads : put .android2 on <html>
+	// multiple rules = multiples downloads : put .android2 on <html>
 	// use with simple css without media-queries and send compressive image
 	var android2 = (/android 2[.]/i.test(navigator.userAgent.toLowerCase()));
 	if (android2){
