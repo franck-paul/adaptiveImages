@@ -93,7 +93,7 @@ class MyAdaptiveImages extends AdaptiveImages
 	 * @param $filepath
 	 * @return string
 	 */
-	protected function filepath2URL($filepath)
+	protected function filepath2URL($filepath,$relative=false)
 	{
 		$url = parent::filepath2URL($filepath);
 		$base = $this->media_path;
