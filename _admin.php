@@ -118,9 +118,9 @@ class adaptiveImagesBehaviors
 	{
 		$settings->addNameSpace('adaptiveimages');
 		echo
-		'<div class="fieldset"><h4>'.__('Adaptive Images').'</h4>'.
+		'<div class="fieldset" id="adaptiveimages_settings"><h4>'.__('Adaptive Images').'</h4>'.
 
-		'<p><label for"adaptiveimages_enabled" class="classic">'.
+		'<p><label for="adaptiveimages_enabled" class="classic">'.
 		form::checkbox('adaptiveimages_enabled','1',$settings->adaptiveimages->enabled).
 		__('Enable Adaptive Images').'</label></p>'.
 

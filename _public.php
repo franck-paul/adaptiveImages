@@ -185,7 +185,7 @@ class dcAdaptiveImages
 
 			// Do transformation
 			$max_width_1x = (integer) $core->blog->settings->adaptiveimages->max_width_1x;
-			$html = $ai->adaptHTMLPage($result['content'],($max_width_1x ? $max_width_1x : null));
+			$html = $ai->adaptHTMLPage($result['content'],($max_width_1x ?: null));
 			$result['content'] = $html;
 		}
 	}
