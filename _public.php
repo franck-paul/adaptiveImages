@@ -136,7 +136,7 @@ class MyAdaptiveImages extends AdaptiveImages
     }
 }
 
-$core->addBehavior('urlHandlerServeDocument', array('dcAdaptiveImages', 'urlHandlerServeDocument'));
+$core->addBehavior('urlHandlerServeDocument', ['dcAdaptiveImages', 'urlHandlerServeDocument']);
 
 class dcAdaptiveImages
 {
@@ -150,7 +150,7 @@ class dcAdaptiveImages
         global $core;
 
         // Do not transform for feed and xlmrpc URLs
-        $excluded = array('feed', 'xmlrpc');
+        $excluded = ['feed', 'xmlrpc'];
         if (in_array($core->url->type, $excluded)) {
             return;
         }

@@ -18,10 +18,10 @@ __('adaptiveImages') . __('Implements the 3-layers technique for Adaptive Images
 
 // Behaviours
 
-$core->addBehavior('adminBlogPreferencesHeaders', array('adaptiveImagesBehaviors', 'adminBlogPreferencesHeaders'));
-$core->addBehavior('adminBlogPreferencesForm', array('adaptiveImagesBehaviors', 'adminBlogPreferencesForm'));
-$core->addBehavior('adminBeforeBlogSettingsUpdate', array('adaptiveImagesBehaviors', 'adminBeforeBlogSettingsUpdate'));
-$core->addBehavior('dcMaintenanceInit', array('adaptiveImagesBehaviors', 'dcMaintenanceInit'));
+$core->addBehavior('adminBlogPreferencesHeaders', ['adaptiveImagesBehaviors', 'adminBlogPreferencesHeaders']);
+$core->addBehavior('adminBlogPreferencesForm', ['adaptiveImagesBehaviors', 'adminBlogPreferencesForm']);
+$core->addBehavior('adminBeforeBlogSettingsUpdate', ['adaptiveImagesBehaviors', 'adminBeforeBlogSettingsUpdate']);
+$core->addBehavior('dcMaintenanceInit', ['adaptiveImagesBehaviors', 'dcMaintenanceInit']);
 
 /**
  * Helper class used by behaviours callback
@@ -126,8 +126,10 @@ class adaptiveImagesBehaviors
         form::checkbox('adaptiveimages_enabled', '1', $settings->adaptiveimages->enabled) .
         __('Enable Adaptive Images') . '</label></p>' .
 
-        '<div class="two-cols">' .
-        '<div class="col">' . '<h5>' . __('Options') . '</h5>' .
+        '<div class="two-cols clearfix">' .
+
+        '<div class="col">' .
+        '<h5>' . __('Options') . '</h5>' .
         '<p><label for="adaptiveimages_max_width_1x" class="classic">' . __('Default maximum display width for images:') . '</label> ' .
         form::field('adaptiveimages_max_width_1x', 4, 4, (integer) $settings->adaptiveimages->max_width_1x) .
         '</p>' .
@@ -141,7 +143,7 @@ class adaptiveImagesBehaviors
         form::field('adaptiveimages_lowsrc_jpg_bgcolor', 7, 7, $settings->adaptiveimages->lowsrc_jpg_bgcolor, 'colorpicker') .
         '</p>' .
         '<p class="clear form-note">' . __('Usually the same background color as your blog (#ffffff by default).') . '</p>' .
-        '</div>' .
+        '</div>' .  // end class="col"
 
         '<div class="col">' .
         '<h5>' . __('JPEG compression quality (0 to 100):') . '</h5>' .
@@ -169,12 +171,12 @@ class adaptiveImagesBehaviors
         '<p class="clear form-note warning">' . __('Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!') . '</p>' .
         '<p><label for="adaptiveimages_default_bkpts" class="classic">' .
         __('Breakpoints (in pixel) for image generation (comma saparated values):') . '</label> ' .
-        form::field('adaptiveimages_default_bkpts', 40, 40, $settings->adaptiveimages->default_bkpts) .
-        '</p>' .
+        form::field('adaptiveimages_default_bkpts', 40, 40, $settings->adaptiveimages->default_bkpts) . '</p>' .
         '<p class="clear form-note">' . __('By default: 160,320,480,640,960,1440.') . '</p>' .
-            '</div>' .
-            '</div>' .
-            '</div>';
+        '</div>' .  // end class="col"
+
+        '</div>' .  // end class="two-cols"
+        '</div>';
     }
 
     /**
