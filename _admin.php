@@ -190,7 +190,7 @@ class adaptiveImagesBehaviors
         $settings->adaptiveimages->put('enabled', !empty($_POST['adaptiveimages_enabled']), 'boolean');
         $settings->adaptiveimages->put('max_width_1x', abs((integer) $_POST['adaptiveimages_max_width_1x']), 'integer');
         $settings->adaptiveimages->put('min_width_1x', abs((integer) $_POST['adaptiveimages_min_width_1x']), 'integer');
-        $settings->adaptiveimages->put('lowsrc_jpg_bgcolor', adaptiveImagesHelpers::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), 'string');
+        $settings->adaptiveimages->put('lowsrc_jpg_bgcolor', !empty($_POST['adaptiveimages_lowsrc_jpg_bgcolor']) ? adaptiveImagesHelpers::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']) : '', 'string');
         $settings->adaptiveimages->put('on_demand', !empty($_POST['adaptiveimages_on_demand']), 'boolean');
         $settings->adaptiveimages->put('default_bkpts', adaptiveImagesHelpers::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), 'string');
         $settings->adaptiveimages->put('lowsrc_jpg_quality', adaptiveImagesHelpers::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), 'integer');
