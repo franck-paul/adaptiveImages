@@ -18,7 +18,6 @@ __('adaptiveImages') . __('Implements the 3-layers technique for Adaptive Images
 
 // Behaviours
 
-$core->addBehavior('adminBlogPreferencesHeaders', ['adaptiveImagesBehaviors', 'adminBlogPreferencesHeaders']);
 $core->addBehavior('adminBlogPreferencesForm', ['adaptiveImagesBehaviors', 'adminBlogPreferencesForm']);
 $core->addBehavior('adminBeforeBlogSettingsUpdate', ['adaptiveImagesBehaviors', 'adminBeforeBlogSettingsUpdate']);
 $core->addBehavior('dcMaintenanceInit', ['adaptiveImagesBehaviors', 'dcMaintenanceInit']);
@@ -101,16 +100,6 @@ class adaptiveImagesBehaviors
     }
 
     /**
-     * adminBlogPreferencesHeaders behaviour callback: include JS color picker in header
-     *
-     * @return string color picker javascript include
-     */
-    public static function adminBlogPreferencesHeaders()
-    {
-        return dcPage::jsColorPicker();
-    }
-
-    /**
      * adminBlogPreferencesForm behaviour callback: display plugin's settings form
      *
      * @param  dcCore $core
@@ -140,7 +129,7 @@ class adaptiveImagesBehaviors
         '<p class="clear form-note">' . __('Smaller images will be unchanged (320 pixels by default).') . '</p>' .
         '<p><label for="adaptiveimages_lowsrc_jpg_bgcolor" class="classic">' .
         __('Backgound color for JPG images produced from transparent one:') . '</label> ' .
-        form::field('adaptiveimages_lowsrc_jpg_bgcolor', 7, 7, $settings->adaptiveimages->lowsrc_jpg_bgcolor, 'colorpicker') .
+        form::color('adaptiveimages_lowsrc_jpg_bgcolor', ['default' => $settings->adaptiveimages->lowsrc_jpg_bgcolor]) .
         '</p>' .
         '<p class="clear form-note">' . __('Usually the same background color as your blog (#ffffff by default).') . '</p>' .
         '</div>' .  // end class="col"
@@ -190,7 +179,7 @@ class adaptiveImagesBehaviors
         $settings->adaptiveimages->put('enabled', !empty($_POST['adaptiveimages_enabled']), 'boolean');
         $settings->adaptiveimages->put('max_width_1x', abs((integer) $_POST['adaptiveimages_max_width_1x']), 'integer');
         $settings->adaptiveimages->put('min_width_1x', abs((integer) $_POST['adaptiveimages_min_width_1x']), 'integer');
-        $settings->adaptiveimages->put('lowsrc_jpg_bgcolor', !empty($_POST['adaptiveimages_lowsrc_jpg_bgcolor']) ? adaptiveImagesHelpers::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']) : '', 'string');
+        $settings->adaptiveimages->put('lowsrc_jpg_bgcolor', adaptiveImagesHelpers::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), 'string');
         $settings->adaptiveimages->put('on_demand', !empty($_POST['adaptiveimages_on_demand']), 'boolean');
         $settings->adaptiveimages->put('default_bkpts', adaptiveImagesHelpers::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), 'string');
         $settings->adaptiveimages->put('lowsrc_jpg_quality', adaptiveImagesHelpers::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), 'integer');

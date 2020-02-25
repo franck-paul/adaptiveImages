@@ -17,9 +17,9 @@ $this->registerModule(
     "adaptiveImages",                                                               // Name
     "Implements the 3-layers technique for Adaptive Images generation (by Nursit)", // Description
     "Franck Paul and contributors",                                                 // Author
-    '1.0',                                                                          // Version
+    '1.1',                                                                          // Version
     [
-        'requires'    => [['core', '2.13']], // Dependencies
+        'requires'    => [['core', '2.16']], // Dependencies
         'permissions' => 'admin',            // Permissions
         'type'        => 'plugin',           // Type
         'settings'    => [                   // Settings
