@@ -17,12 +17,14 @@ $this->registerModule(
     "adaptiveImages",                                                               // Name
     "Implements the 3-layers technique for Adaptive Images generation (by Nursit)", // Description
     "Franck Paul and contributors",                                                 // Author
-    '1.1',                                                                          // Version
+    '0.9',                                                                          // Version
     [
-        'requires'    => [['core', '2.16']], // Dependencies
-        'permissions' => 'admin',            // Permissions
-        'type'        => 'plugin',           // Type
-        'settings'    => [                   // Settings
+        'requires'    => [['core', '2.16']],                               // Dependencies
+        'permissions' => 'admin',                                          // Permissions
+        'type'        => 'plugin',                                         // Type
+        'details'     => 'https://open-time.net/?q=adaptiveimages',        // Details URL
+        'support'     => 'https://github.com/franck-paul/adaptivesImages', // Support URL
+        'settings'    => [                                                 // Settings
             'blog' => '#params.adaptiveimages_settings'
         ]
     ]

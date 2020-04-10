@@ -13,7 +13,7 @@
 
 if (!defined('DC_RC_PATH')) {return;}
 
-require_once dirname(__FILE__) . '/inc/AdaptiveImages.php';
+require_once dirname(__FILE__) . '/lib/AdaptiveImages.php';
 
 class MyAdaptiveImages extends AdaptiveImages
 {
@@ -102,8 +102,11 @@ class MyAdaptiveImages extends AdaptiveImages
         if (strncmp($url, $base, strlen($base)) == 0) {
             $url = $this->media_url . substr($url, strlen($base));
             $url = str_replace("//", "/", $url);
-        } elseif (isset($_SERVER['DOCUMENT_ROOT']) && $root = rtrim($_SERVER['DOCUMENT_ROOT'], "/") && strncmp($url, $root, strlen($root)) == 0) {
-            $url = substr($url, strlen($root));
+        } elseif (isset($_SERVER['DOCUMENT_ROOT'])) {
+            $root = rtrim($_SERVER['DOCUMENT_ROOT'], "/");
+            if (strncmp($url, $root, strlen($root)) == 0) {
+                $url = substr($url, strlen($root));
+            }
         }
         return $url;
     }
