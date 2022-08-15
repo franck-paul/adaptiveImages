@@ -10,10 +10,11 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
-if (!defined('DC_RC_PATH')) {return;}
-
-require_once dirname(__FILE__) . '/lib/AdaptiveImages.php';
+require_once __DIR__ . '/lib/AdaptiveImages.php';
 
 class MyAdaptiveImages extends AdaptiveImages
 {
@@ -33,8 +34,8 @@ class MyAdaptiveImages extends AdaptiveImages
      */
     protected function __construct()
     {
-        $this->media_url  = rtrim($GLOBALS['core']->blog->settings->system->public_url, "/") . "/";
-        $this->media_path = $GLOBALS['core']->blog->public_path;
+        $this->media_url  = rtrim((string) dcCore::app()->blog->settings->system->public_url, '/') . '/';
+        $this->media_path = dcCore::app()->blog->public_path;
         $this->media_path = $this->realPath2relativePath($this->media_path);
     }
 
@@ -56,10 +57,11 @@ class MyAdaptiveImages extends AdaptiveImages
      */
     public function realPath2relativePath($path)
     {
-        $dir = dirname($_SERVER['SCRIPT_FILENAME']) . "/";
+        $dir = dirname($_SERVER['SCRIPT_FILENAME']) . '/';
         if (strncmp($path, $dir, strlen($dir)) == 0) {
             $path = substr($path, strlen($dir));
         }
+
         return $path;
     }
 
@@ -69,7 +71,7 @@ class MyAdaptiveImages extends AdaptiveImages
      * Should be overriden depending of your URL mapping rules vs DOCUMENT_ROOT
      * can also remap Absolute URL of current website to filesystem path
      *
-     * @param $url
+     * @param string $url
      * @return string
      */
     protected function URL2filepath($url)
@@ -77,12 +79,13 @@ class MyAdaptiveImages extends AdaptiveImages
         $path = parent::URL2filepath($url);
         $base = $this->media_url;
         if (strncmp($path, $base, strlen($base)) == 0) {
-            $path = $this->media_path . "/" . ltrim(substr($path, strlen($base)), "/");
-            $path = str_replace("//", "/", $path);
-        } elseif (strncmp($url, "/", 1) == 0 && isset($_SERVER['DOCUMENT_ROOT'])) {
-            $root = rtrim($_SERVER['DOCUMENT_ROOT'], "/");
+            $path = $this->media_path . '/' . ltrim(substr($path, strlen($base)), '/');
+            $path = str_replace('//', '/', $path);
+        } elseif (strncmp($url, '/', 1) == 0 && isset($_SERVER['DOCUMENT_ROOT'])) {
+            $root = rtrim((string) $_SERVER['DOCUMENT_ROOT'], '/');
             $path = $root . $path;
         }
+
         return $path;
     }
 
@@ -92,7 +95,7 @@ class MyAdaptiveImages extends AdaptiveImages
      * Should be overriden depending of your URL mapping rules vs DOCUMENT_ROOT
      * can map URL on specific domain (domain sharding for Webperf purpose)
      *
-     * @param $filepath
+     * @param string $filepath
      * @return string
      */
     protected function filepath2URL($filepath, $relative = false)
@@ -101,13 +104,14 @@ class MyAdaptiveImages extends AdaptiveImages
         $base = $this->media_path;
         if (strncmp($url, $base, strlen($base)) == 0) {
             $url = $this->media_url . substr($url, strlen($base));
-            $url = str_replace("//", "/", $url);
+            $url = str_replace('//', '/', $url);
         } elseif (isset($_SERVER['DOCUMENT_ROOT'])) {
-            $root = rtrim($_SERVER['DOCUMENT_ROOT'], "/");
+            $root = rtrim((string) $_SERVER['DOCUMENT_ROOT'], '/');
             if (strncmp($url, $root, strlen($root)) == 0) {
                 $url = substr($url, strlen($root));
             }
         }
+
         return $url;
     }
 
@@ -135,11 +139,12 @@ class MyAdaptiveImages extends AdaptiveImages
             $style   = ' text-align:center;';
         }
         $markup = sprintf('<%1$s class="%2$s" style="%3$s">%4$s</%1$s>', $wrapper, $originalClass, $originalStyle . $style, $markup);
+
         return $markup;
     }
 }
 
-$core->addBehavior('urlHandlerServeDocument', ['dcAdaptiveImages', 'urlHandlerServeDocument']);
+dcCore::app()->addBehavior('urlHandlerServeDocument', ['dcAdaptiveImages', 'urlHandlerServeDocument']);
 
 class dcAdaptiveImages
 {
@@ -150,30 +155,28 @@ class dcAdaptiveImages
      */
     public static function urlHandlerServeDocument($result)
     {
-        global $core;
-
         // Do not transform for feed and xlmrpc URLs
         $excluded = ['feed', 'xmlrpc'];
-        if (in_array($core->url->type, $excluded)) {
+        if (in_array(dcCore::app()->url->type, $excluded)) {
             return;
         }
 
-        $core->blog->settings->addNameSpace('adaptiveimages');
-        if ($core->blog->settings->adaptiveimages->enabled) {
+        dcCore::app()->blog->settings->addNameSpace('adaptiveimages');
+        if (dcCore::app()->blog->settings->adaptiveimages->enabled) {
             $ai = MyAdaptiveImages::getInstance();
 
             // Set properties
-            $ai->destDirectory  = $ai->realPath2relativePath($core->blog->public_path . '/.adapt-img/');
-            $ai->onDemandImages = (boolean) $core->blog->settings->adaptiveimages->on_demand;
+            $ai->destDirectory  = $ai->realPath2relativePath(dcCore::app()->blog->public_path . '/.adapt-img/'); // @phpstan-ignore-line
+            $ai->onDemandImages = (bool) dcCore::app()->blog->settings->adaptiveimages->on_demand;               // @phpstan-ignore-line
 
             // Set options
-            if ($min_width_1x = (integer) $core->blog->settings->adaptiveimages->min_width_1x) {
+            if ($min_width_1x = (int) dcCore::app()->blog->settings->adaptiveimages->min_width_1x) {
                 $ai->minWidth1x = $min_width_1x;
             }
-            if (($lowsrc_jpg_bgcolor = $core->blog->settings->adaptiveimages->lowsrc_jpg_bgcolor) != '') {
+            if (($lowsrc_jpg_bgcolor = dcCore::app()->blog->settings->adaptiveimages->lowsrc_jpg_bgcolor) != '') {
                 $ai->lowsrcJpgBgColor = $lowsrc_jpg_bgcolor;
             }
-            if (($default_bkpts = $core->blog->settings->adaptiveimages->default_bkpts) != '') {
+            if (($default_bkpts = dcCore::app()->blog->settings->adaptiveimages->default_bkpts) != '') {
                 $ai->defaultBkpts = explode(',', $default_bkpts);
             }
 
@@ -187,7 +190,7 @@ class dcAdaptiveImages
             }
 
             // Do transformation
-            $max_width_1x      = (integer) $core->blog->settings->adaptiveimages->max_width_1x;
+            $max_width_1x      = (int) dcCore::app()->blog->settings->adaptiveimages->max_width_1x;
             $html              = $ai->adaptHTMLPage($result['content'], ($max_width_1x ?: null));
             $result['content'] = $html;
         }
@@ -203,10 +206,10 @@ class urlAdaptiveImages extends dcUrlHandlers
      */
     public static function onDemand($args)
     {
-        global $core;
+        $AdaptiveImages = MyAdaptiveImages::getInstance();
+        /* @phpstan-ignore-next-line */
+        $AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath(dcCore::app()->blog->public_path . '/.adapt-img/');
 
-        $AdaptiveImages                = MyAdaptiveImages::getInstance();
-        $AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath($core->blog->public_path . '/.adapt-img/');
         try {
             $AdaptiveImages->deliverBkptImage($args);
         } catch (Exception $e) {

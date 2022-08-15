@@ -18,17 +18,18 @@ $this->registerModule(
     'adaptiveImages',                                                               // Name
     'Implements the 3-layers technique for Adaptive Images generation (by Nursit)', // Description
     'Franck Paul and contributors',                                                 // Author
-    '0.9',                                                                          // Version
+    '0.10',
     [
-        'requires'    => [['core', '2.16']],                               // Dependencies
+        'requires'    => [['core', '2.23']],                               // Dependencies
         'permissions' => 'admin',                                          // Permissions
         'type'        => 'plugin',                                         // Type
+        'priority'    => 1001,                                             // Priority
         'settings'    => [                                                 // Settings
-            'blog' => '#params.adaptiveimages_settings'
+            'blog' => '#params.adaptiveimages_settings',
         ],
 
         'details'    => 'https://open-time.net/?q=adaptivesImages',       // Details URL
         'support'    => 'https://github.com/franck-paul/adaptivesImages', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/adaptivesImages/master/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/adaptivesImages/master/dcstore.xml',
     ]
 );

@@ -10,9 +10,10 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
-if (!defined('DC_RC_PATH')) {return;}
+dcCore::app()->url->register('adapt-img', 'adapt-img', '^adapt-img/(.+)?$', ['urlAdaptiveImages', 'onDemand']);
 
-$core->url->register('adapt-img', 'adapt-img', '^adapt-img/(.+)?$', ['urlAdaptiveImages', 'onDemand']);
-
-$__autoload['dcMaintenanceAdaptiveImages'] = dirname(__FILE__) . '/_tasks.php';
+$__autoload['dcMaintenanceAdaptiveImages'] = __DIR__ . '/_tasks.php';

@@ -10,8 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 /**
  * Maintenance class
@@ -26,12 +27,12 @@ class dcMaintenanceAdaptiveImages extends dcMaintenanceTask
         $this->success = __('Adaptive images cache directory emptied.');
         $this->error   = __('Failed to empty adaptive images cache directory.');
 
-        $this->description = __("It may be useful to empty this cache when modifying breakpoints or quality of JPEG compression. Notice : with some hosters, the adaptive images cache cannot be emptied with this plugin.");
+        $this->description = __('It may be useful to empty this cache when modifying breakpoints or quality of JPEG compression. Notice : with some hosters, the adaptive images cache cannot be emptied with this plugin.');
     }
 
     public function execute()
     {
-        $cache_dir = $this->core->blog->public_path . '/.adapt-img/';
+        $cache_dir = dcCore::app()->blog->public_path . '/.adapt-img/';
         if (is_dir($cache_dir)) {
             files::deltree($cache_dir);
         }
