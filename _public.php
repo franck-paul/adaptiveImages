@@ -144,8 +144,6 @@ class MyAdaptiveImages extends AdaptiveImages
     }
 }
 
-dcCore::app()->addBehavior('urlHandlerServeDocument', ['dcAdaptiveImages', 'urlHandlerServeDocument']);
-
 class dcAdaptiveImages
 {
     /**
@@ -196,6 +194,8 @@ class dcAdaptiveImages
         }
     }
 }
+
+dcCore::app()->addBehavior('urlHandlerServeDocument', [dcAdaptiveImages::class, 'urlHandlerServeDocument']);
 
 class urlAdaptiveImages extends dcUrlHandlers
 {

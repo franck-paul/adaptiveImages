@@ -17,12 +17,6 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('adaptiveImages') . __('Implements the 3-layers technique for Adaptive Images generation (by Nursit)');
 
-// Behaviours
-
-dcCore::app()->addBehavior('adminBlogPreferencesForm', ['adaptiveImagesBehaviors', 'adminBlogPreferencesForm']);
-dcCore::app()->addBehavior('adminBeforeBlogSettingsUpdate', ['adaptiveImagesBehaviors', 'adminBeforeBlogSettingsUpdate']);
-dcCore::app()->addBehavior('dcMaintenanceInit', ['adaptiveImagesBehaviors', 'dcMaintenanceInit']);
-
 /**
  * Helper class used by behaviours callback
  */
@@ -100,16 +94,15 @@ class adaptiveImagesBehaviors
      */
     public static function dcMaintenanceInit($maintenance)
     {
-        $maintenance->addTask('dcMaintenanceAdaptiveImages');
+        $maintenance->addTask(dcMaintenanceAdaptiveImages::class);
     }
 
     /**
      * adminBlogPreferencesForm behaviour callback: display plugin's settings form
      *
-     * @param  dcCore $core
      * @param  dcSettings $settings
      */
-    public static function adminBlogPreferencesForm($core, $settings)
+    public static function adminBlogPreferencesForm($settings)
     {
         $settings->addNameSpace('adaptiveimages');
         echo
@@ -161,7 +154,7 @@ class adaptiveImagesBehaviors
         '<p><label for"adaptiveimages_on_demand" class="classic">' .
         form::checkbox('adaptiveimages_on_demand', '1', $settings->adaptiveimages->on_demand) .
         __('Deliver adaptive images on demand') . '</label></p>' .
-        '<p class="clear form-note warning">' . __('Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!') . '</p>' .
+        '<p class="clear form-note warn">' . __('Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!') . '</p>' .
         '<p><label for="adaptiveimages_default_bkpts" class="classic">' .
         __('Breakpoints (in pixel) for image generation (comma saparated values):') . '</label> ' .
         form::field('adaptiveimages_default_bkpts', 40, 40, $settings->adaptiveimages->default_bkpts) . '</p>' .
@@ -192,3 +185,9 @@ class adaptiveImagesBehaviors
         $settings->adaptiveimages->put('x20_jpg_quality', adaptiveImagesHelpers::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), 'integer');
     }
 }
+
+// Behaviours
+
+dcCore::app()->addBehavior('adminBlogPreferencesFormV2', [adaptiveImagesBehaviors::class, 'adminBlogPreferencesForm']);
+dcCore::app()->addBehavior('adminBeforeBlogSettingsUpdate', [adaptiveImagesBehaviors::class, 'adminBeforeBlogSettingsUpdate']);
+dcCore::app()->addBehavior('dcMaintenanceInit', [adaptiveImagesBehaviors::class, 'dcMaintenanceInit']);

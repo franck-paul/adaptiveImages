@@ -15,21 +15,23 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'adaptiveImages',                                                               // Name
-    'Implements the 3-layers technique for Adaptive Images generation (by Nursit)', // Description
-    'Franck Paul and contributors',                                                 // Author
-    '0.10',
+    'adaptiveImages',
+    'Implements the 3-layers technique for Adaptive Images generation (by Nursit)',
+    'Franck Paul and contributors',
+    '0.11',
     [
-        'requires'    => [['core', '2.23']],                               // Dependencies
-        'permissions' => 'admin',                                          // Permissions
-        'type'        => 'plugin',                                         // Type
-        'priority'    => 1001,                                             // Priority
-        'settings'    => [                                                 // Settings
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_ADMIN,
+        ]),
+        'type'     => 'plugin',
+        'priority' => 1001,
+        'settings' => [
             'blog' => '#params.adaptiveimages_settings',
         ],
 
-        'details'    => 'https://open-time.net/?q=adaptivesImages',       // Details URL
-        'support'    => 'https://github.com/franck-paul/adaptivesImages', // Support URL
+        'details'    => 'https://open-time.net/?q=adaptivesImages',
+        'support'    => 'https://github.com/franck-paul/adaptivesImages',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/adaptivesImages/master/dcstore.xml',
     ]
 );

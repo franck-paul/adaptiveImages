@@ -21,7 +21,7 @@ class dcMaintenanceAdaptiveImages extends dcMaintenanceTask
 {
     protected $group = 'purge';
 
-    protected function init()
+    protected function init(): void
     {
         $this->task    = __('Empty adaptive images cache directory');
         $this->success = __('Adaptive images cache directory emptied.');

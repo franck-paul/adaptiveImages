@@ -16,4 +16,4 @@ if (!defined('DC_RC_PATH')) {
 
 dcCore::app()->url->register('adapt-img', 'adapt-img', '^adapt-img/(.+)?$', ['urlAdaptiveImages', 'onDemand']);
 
-$__autoload['dcMaintenanceAdaptiveImages'] = __DIR__ . '/_tasks.php';
+Clearbricks::lib()->autoload(['dcMaintenanceAdaptiveImages' => __DIR__ . '/_tasks.php']);
