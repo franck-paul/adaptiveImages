@@ -10,14 +10,15 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return;
-}
+declare(strict_types=1);
 
-/**
- * Maintenance class
- */
-class dcMaintenanceAdaptiveImages extends dcMaintenanceTask
+namespace Dotclear\Plugin\adaptiveImages;
+
+use dcCore;
+use Dotclear\Helper\File\Files;
+use Dotclear\Plugin\maintenance\MaintenanceTask;
+
+class Maintenance extends MaintenanceTask
 {
     protected $group = 'purge';
 
@@ -34,7 +35,7 @@ class dcMaintenanceAdaptiveImages extends dcMaintenanceTask
     {
         $cache_dir = dcCore::app()->blog->public_path . '/.adapt-img/';
         if (is_dir($cache_dir)) {
-            files::deltree($cache_dir);
+            Files::deltree($cache_dir);
         }
 
         return true;

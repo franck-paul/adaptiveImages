@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 adaptiveImages module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-17 09:53+0100\n"
+"POT-Creation-Date: 2023-04-01 08:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,114 +16,118 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hg-plugins/adaptiveImages/_admin.php:15
+#: ../git-plugins/adaptiveImages/_admin.php:18
 msgid "Implements the 3-layers technique for Adaptive Images generation (by Nursit)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:15
+#: ../git-plugins/adaptiveImages/_admin.php:18
 msgid "adaptiveImages"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:121
+#: ../git-plugins/adaptiveImages/_admin.php:108
 msgid "Adaptive Images"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:125
+#: ../git-plugins/adaptiveImages/_admin.php:112
 msgid "Enable Adaptive Images"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:129
+#: ../git-plugins/adaptiveImages/_admin.php:117
+msgid "Options"
+msgstr ""
+
+#: ../git-plugins/adaptiveImages/_admin.php:118
 msgid "Default maximum display width for images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:132
+#: ../git-plugins/adaptiveImages/_admin.php:121
 msgid "The Default maximum display width for images is 640 pixels."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:133
+#: ../git-plugins/adaptiveImages/_admin.php:122
 msgid "Default minimum display width for images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:136
+#: ../git-plugins/adaptiveImages/_admin.php:125
 msgid "Smaller images will be unchanged (320 pixels by default)."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:138
+#: ../git-plugins/adaptiveImages/_admin.php:127
 msgid "Backgound color for JPG images produced from transparent one:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:141
+#: ../git-plugins/adaptiveImages/_admin.php:130
 msgid "Usually the same background color as your blog (#ffffff by default)."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:145
+#: ../git-plugins/adaptiveImages/_admin.php:134
 msgid "JPEG compression quality (0 to 100):"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:147
+#: ../git-plugins/adaptiveImages/_admin.php:136
 msgid "Preview images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:149
+#: ../git-plugins/adaptiveImages/_admin.php:138
 msgid "(10 by default)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:151
+#: ../git-plugins/adaptiveImages/_admin.php:140
 msgid "Standard images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:153
+#: ../git-plugins/adaptiveImages/_admin.php:142
 msgid "(75 by default)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:155
+#: ../git-plugins/adaptiveImages/_admin.php:144
 msgid "1.5x images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:157
+#: ../git-plugins/adaptiveImages/_admin.php:146
 msgid "(65 by default)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:159
+#: ../git-plugins/adaptiveImages/_admin.php:148
 msgid "2x images:"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:161
+#: ../git-plugins/adaptiveImages/_admin.php:150
 msgid "(45 by default)"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:163
+#: ../git-plugins/adaptiveImages/_admin.php:152
 msgid "Advanced options"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:166
+#: ../git-plugins/adaptiveImages/_admin.php:155
 msgid "Deliver adaptive images on demand"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:167
+#: ../git-plugins/adaptiveImages/_admin.php:156
 msgid "Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:169
+#: ../git-plugins/adaptiveImages/_admin.php:158
 msgid "Breakpoints (in pixel) for image generation (comma saparated values):"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_admin.php:172
+#: ../git-plugins/adaptiveImages/_admin.php:160
 msgid "By default: 160,320,480,640,960,1440."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_tasks.php:23
+#: ../git-plugins/adaptiveImages/_tasks.php:30
 msgid "Empty adaptive images cache directory"
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_tasks.php:24
+#: ../git-plugins/adaptiveImages/_tasks.php:31
 msgid "Adaptive images cache directory emptied."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_tasks.php:25
+#: ../git-plugins/adaptiveImages/_tasks.php:32
 msgid "Failed to empty adaptive images cache directory."
 msgstr ""
 
-#: ../hg-plugins/adaptiveImages/_tasks.php:27
+#: ../git-plugins/adaptiveImages/_tasks.php:34
 msgid "It may be useful to empty this cache when modifying breakpoints or quality of JPEG compression. Notice : with some hosters, the adaptive images cache cannot be emptied with this plugin."
 msgstr ""

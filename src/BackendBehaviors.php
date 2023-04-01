@@ -10,83 +10,13 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return;
-}
+declare(strict_types=1);
 
-// dead but useful code, in order to have translations
-__('adaptiveImages') . __('Implements the 3-layers technique for Adaptive Images generation (by Nursit)');
+namespace Dotclear\Plugin\adaptiveImages;
 
-/**
- * Helper class used by behaviours callback
- */
-class adaptiveImagesHelpers
-{
-    /**
-     * Check and return an hexadecimal web color as string or empty string on error
-     *
-     * @param  string $c color as input on form
-     * @return string    validated color or empty
-     */
-    public static function adjustColor($c)
-    {
-        if ($c === '') {
-            return '';
-        }
-        $c = strtoupper($c);
-        if (preg_match('/^[A-F0-9]{3,6}$/', $c)) {
-            $c = '#' . $c;
-        }
-        if (preg_match('/^#[A-F0-9]{6}$/', $c)) {
-            return $c;
-        }
-        if (preg_match('/^#[A-F0-9]{3,}$/', $c)) {
-            return '#' . substr($c, 1, 1) . substr($c, 1, 1) . substr($c, 2, 1) . substr($c, 2, 1) . substr($c, 3, 1) . substr($c, 3, 1);
-        }
+use form;
 
-        return '';
-    }
-
-    /**
-     * Check and return a sorted list of values separated by comma as string or empty string on error
-     *
-     * @param  string $b breakpoints separated by comma
-     * @return string    validated and sorted list of breakpoints separated by comma or empty
-     */
-    public static function adjustBreakpoints($b)
-    {
-        if ($b === '') {
-            return '';
-        }
-        $a = array_map('trim', explode(',', $b));
-        for ($i = 0; $i < count($a); $i++) {
-            $a[$i] = abs((int) $a[$i]);
-        }
-        $a = array_unique($a);
-        sort($a, SORT_NUMERIC);
-
-        return implode(',', $a);
-    }
-
-    /**
-     * Check and return JPEG compression quality (0 to 100)
-     * @param  string $q
-     * @return integer
-     */
-    public static function adjustJPGQuality($q)
-    {
-        if ($q === '') {
-            return 0;
-        }
-
-        return max(100, abs((int) $q));
-    }
-}
-
-/**
- * plugin's behaviours class
- */
-class adaptiveImagesBehaviors
+class BackendBehaviors
 {
     /**
      * dcMaintenanceInit Add cache emptying maintenance task
@@ -94,7 +24,7 @@ class adaptiveImagesBehaviors
      */
     public static function dcMaintenanceInit($maintenance)
     {
-        $maintenance->addTask(dcMaintenanceAdaptiveImages::class);
+        $maintenance->addTask(Maintenance::class);
     }
 
     /**
@@ -104,7 +34,6 @@ class adaptiveImagesBehaviors
      */
     public static function adminBlogPreferencesForm($settings)
     {
-        $settings->addNameSpace('adaptiveimages');
         echo
         '<div class="fieldset" id="adaptiveimages_settings"><h4>' . __('Adaptive Images') . '</h4>' .
 
@@ -172,22 +101,75 @@ class adaptiveImagesBehaviors
      */
     public static function adminBeforeBlogSettingsUpdate($settings)
     {
-        $settings->addNameSpace('adaptiveimages');
         $settings->adaptiveimages->put('enabled', !empty($_POST['adaptiveimages_enabled']), 'boolean');
         $settings->adaptiveimages->put('max_width_1x', abs((int) $_POST['adaptiveimages_max_width_1x']), 'integer');
         $settings->adaptiveimages->put('min_width_1x', abs((int) $_POST['adaptiveimages_min_width_1x']), 'integer');
-        $settings->adaptiveimages->put('lowsrc_jpg_bgcolor', adaptiveImagesHelpers::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), 'string');
+        $settings->adaptiveimages->put('lowsrc_jpg_bgcolor', self::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), 'string');
         $settings->adaptiveimages->put('on_demand', !empty($_POST['adaptiveimages_on_demand']), 'boolean');
-        $settings->adaptiveimages->put('default_bkpts', adaptiveImagesHelpers::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), 'string');
-        $settings->adaptiveimages->put('lowsrc_jpg_quality', adaptiveImagesHelpers::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), 'integer');
-        $settings->adaptiveimages->put('x10_jpg_quality', adaptiveImagesHelpers::adjustJPGQuality($_POST['adaptiveimages_x10_jpg_quality']), 'integer');
-        $settings->adaptiveimages->put('x15_jpg_quality', adaptiveImagesHelpers::adjustJPGQuality($_POST['adaptiveimages_x15_jpg_quality']), 'integer');
-        $settings->adaptiveimages->put('x20_jpg_quality', adaptiveImagesHelpers::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), 'integer');
+        $settings->adaptiveimages->put('default_bkpts', self::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), 'string');
+        $settings->adaptiveimages->put('lowsrc_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), 'integer');
+        $settings->adaptiveimages->put('x10_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x10_jpg_quality']), 'integer');
+        $settings->adaptiveimages->put('x15_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x15_jpg_quality']), 'integer');
+        $settings->adaptiveimages->put('x20_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), 'integer');
+    }
+
+    /**
+     * Check and return an hexadecimal web color as string or empty string on error
+     *
+     * @param  string $c color as input on form
+     * @return string    validated color or empty
+     */
+    public static function adjustColor($c)
+    {
+        if ($c === '') {
+            return '';
+        }
+        $c = strtoupper($c);
+        if (preg_match('/^[A-F0-9]{3,6}$/', $c)) {
+            $c = '#' . $c;
+        }
+        if (preg_match('/^#[A-F0-9]{6}$/', $c)) {
+            return $c;
+        }
+        if (preg_match('/^#[A-F0-9]{3,}$/', $c)) {
+            return '#' . substr($c, 1, 1) . substr($c, 1, 1) . substr($c, 2, 1) . substr($c, 2, 1) . substr($c, 3, 1) . substr($c, 3, 1);
+        }
+
+        return '';
+    }
+
+    /**
+     * Check and return a sorted list of values separated by comma as string or empty string on error
+     *
+     * @param  string $b breakpoints separated by comma
+     * @return string    validated and sorted list of breakpoints separated by comma or empty
+     */
+    public static function adjustBreakpoints($b)
+    {
+        if ($b === '') {
+            return '';
+        }
+        $a = array_map('trim', explode(',', $b));
+        for ($i = 0; $i < count($a); $i++) {
+            $a[$i] = abs((int) $a[$i]);
+        }
+        $a = array_unique($a);
+        sort($a, SORT_NUMERIC);
+
+        return implode(',', $a);
+    }
+
+    /**
+     * Check and return JPEG compression quality (0 to 100)
+     * @param  string $q
+     * @return integer
+     */
+    public static function adjustJPGQuality($q)
+    {
+        if ($q === '') {
+            return 0;
+        }
+
+        return max(100, abs((int) $q));
     }
 }
-
-// Behaviours
-
-dcCore::app()->addBehavior('adminBlogPreferencesFormV2', [adaptiveImagesBehaviors::class, 'adminBlogPreferencesForm']);
-dcCore::app()->addBehavior('adminBeforeBlogSettingsUpdate', [adaptiveImagesBehaviors::class, 'adminBeforeBlogSettingsUpdate']);
-dcCore::app()->addBehavior('dcMaintenanceInit', [adaptiveImagesBehaviors::class, 'dcMaintenanceInit']);
