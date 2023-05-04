@@ -15,6 +15,7 @@ L10n::$locales['Implements the 3-layers technique for Adaptive Images generation
 L10n::$locales['adaptiveImages'] = 'adaptiveImages';
 L10n::$locales['Adaptive Images'] = 'Images adaptatives';
 L10n::$locales['Enable Adaptive Images'] = 'Activer les images adaptatives';
+L10n::$locales['Options'] = '';
 L10n::$locales['Default maximum display width for images:'] = 'Largeur maximum des images affichées:';
 L10n::$locales['The Default maximum display width for images is 640 pixels.'] = 'La largeur maximum des images affichées est de 640 pixels par défaut.';
 L10n::$locales['Default minimum display width for images:'] = 'Largeur minimum des images traitées:';

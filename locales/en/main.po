@@ -13,121 +13,92 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../git-plugins/adaptiveImages/src/Backend.php:27
 msgid "Implements the 3-layers technique for Adaptive Images generation (by Nursit)"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/Backend.php:27
 msgid "adaptiveImages"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:38
 msgid "Adaptive Images"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:42
 msgid "Enable Adaptive Images"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:47
 msgid "Options"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:48
 msgid "Default maximum display width for images:"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:51
 msgid "The Default maximum display width for images is 640 pixels."
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:52
 msgid "Default minimum display width for images:"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:55
 msgid "Smaller images will be unchanged (320 pixels by default)."
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:57
 msgid "Backgound color for JPG images produced from transparent one:"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:60
 msgid "Usually the same background color as your blog (#ffffff by default)."
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:64
 msgid "JPEG compression quality (0 to 100):"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:66
 msgid "Preview images:"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:68
 msgid "(10 by default)"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:70
 msgid "Standard images:"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:72
 msgid "(75 by default)"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:74
 msgid "1.5x images:"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:76
 msgid "(65 by default)"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:78
 msgid "2x images:"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:80
 msgid "(45 by default)"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:82
 msgid "Advanced options"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:85
 msgid "Deliver adaptive images on demand"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:86
 msgid "Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:88
 msgid "Breakpoints (in pixel) for image generation (comma saparated values):"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/BackendBehaviors.php:90
 msgid "By default: 160,320,480,640,960,1440."
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/Maintenance.php:27
 msgid "Empty adaptive images cache directory"
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/Maintenance.php:28
 msgid "Adaptive images cache directory emptied."
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/Maintenance.php:29
 msgid "Failed to empty adaptive images cache directory."
 msgstr ""
 
-#: ../git-plugins/adaptiveImages/src/Maintenance.php:31
 msgid "It may be useful to empty this cache when modifying breakpoints or quality of JPEG compression. Notice : with some hosters, the adaptive images cache cannot be emptied with this plugin."
 msgstr ""
