@@ -14,7 +14,7 @@ $this->registerModule(
     'adaptiveImages',
     'Implements the 3-layers technique for Adaptive Images generation (by Nursit)',
     'Franck Paul and contributors',
-    '1.0',
+    '2.0',
     [
         'requires'    => [['core', '2.26']],
         'permissions' => dcCore::app()->auth->makePermissions([
