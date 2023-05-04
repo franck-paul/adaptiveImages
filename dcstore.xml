@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="adaptiveImages">
     <name>adaptiveImages</name>
-    <version>0.11</version>
+    <version>2.0</version>
     <author>Franck Paul and contributors</author>
     <desc>Implements the 3-layers technique for Adaptive Images generation (by Nursit)</desc>
-    <file>https://github.com/franck-paul/adaptiveImages/releases/download/0.11/plugin-adaptiveImages-0.11.zip</file>
-    <da:dcmin>2.24</da:dcmin>
+    <file>https://github.com/franck-paul/adaptiveImages/releases/download/2.0/plugin-adaptiveImages-2.0.zip</file>
+    <da:dcmin>2.26</da:dcmin>
     <da:details>https://open-time.net/?q=adaptivesImages</da:details>
     <da:support>https://github.com/franck-paul/adaptivesImages</da:support>
   </module>
