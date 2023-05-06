@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
+use ArrayObject;
 use dcCore;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
@@ -26,7 +27,7 @@ class FrontendBehaviors
      *
      * @param ArrayObject $result
      */
-    public static function urlHandlerServeDocument($result)
+    public static function urlHandlerServeDocument(ArrayObject $result)
     {
         // Do not transform for feed and xlmrpc URLs
         $excluded = ['feed', 'xmlrpc'];
@@ -35,13 +36,13 @@ class FrontendBehaviors
         }
 
         /**
-         * @var        dcNamespace
+         * @var        \dcNamespace
          */
         $settings = dcCore::app()->blog->settings->get(My::id());
 
         if ($settings->enabled) {
             /**
-             * @var        AdaptiveImages
+             * @var        Core
              */
             $ai = Core::getInstance();
 

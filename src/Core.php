@@ -38,6 +38,8 @@ class Core extends AdaptiveImages
         $this->media_url  = rtrim((string) dcCore::app()->blog->settings->system->public_url, '/') . '/';
         $this->media_path = dcCore::app()->blog->public_path;
         $this->media_path = $this->realPath2relativePath($this->media_path);
+
+        parent::__construct();
     }
 
     /**

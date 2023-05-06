@@ -32,7 +32,7 @@ class Frontend extends dcNsProcess
             return false;
         }
 
-        dcCore::app()->addBehavior('urlHandlerServeDocument', [Frontendbehaviors::class, 'urlHandlerServeDocument']);
+        dcCore::app()->addBehavior('urlHandlerServeDocument', [FrontendBehaviors::class, 'urlHandlerServeDocument']);
 
         return true;
     }

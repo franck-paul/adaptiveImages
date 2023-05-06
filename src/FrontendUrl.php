@@ -28,9 +28,11 @@ class FrontendUrl extends dcUrlHandlers
     public static function onDemand($args)
     {
         /**
-         * @var        AdaptiveImages
+         * @var        Core
          */
-        $AdaptiveImages                = Core::getInstance();
+        $AdaptiveImages = Core::getInstance();
+
+        /* @phpstan-ignore-next-line */
         $AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath(dcCore::app()->blog->public_path . '/.adapt-img/');
 
         try {

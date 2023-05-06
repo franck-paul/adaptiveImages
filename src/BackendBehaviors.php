@@ -30,7 +30,7 @@ class BackendBehaviors
 {
     /**
      * dcMaintenanceInit Add cache emptying maintenance task
-     * @param  dcMaintenance $maintenance
+     * @param  \dcMaintenance $maintenance
      */
     public static function dcMaintenanceInit($maintenance)
     {
@@ -43,7 +43,7 @@ class BackendBehaviors
     public static function adminBlogPreferencesForm()
     {
         /**
-         * @var        dcNamespace
+         * @var        \dcNamespace
          */
         $settings = dcCore::app()->blog->settings->get(My::id());
 
@@ -140,7 +140,7 @@ class BackendBehaviors
     public static function adminBeforeBlogSettingsUpdate()
     {
         /**
-         * @var        dcNamespace
+         * @var        \dcNamespace
          */
         $settings = dcCore::app()->blog->settings->get(My::id());
 
@@ -213,6 +213,6 @@ class BackendBehaviors
             return 0;
         }
 
-        return max(100, abs((int) $q));
+        return min(100, abs((int) $q));
     }
 }
