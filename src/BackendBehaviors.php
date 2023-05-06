@@ -14,7 +14,17 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
-use form;
+use dcCore;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Color;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Fieldset;
+use Dotclear\Helper\Html\Form\Input;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Number;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Text;
 
 class BackendBehaviors
 {
@@ -29,88 +39,121 @@ class BackendBehaviors
 
     /**
      * adminBlogPreferencesForm behaviour callback: display plugin's settings form
-     *
-     * @param  dcSettings $settings
      */
-    public static function adminBlogPreferencesForm($settings)
+    public static function adminBlogPreferencesForm()
     {
+        /**
+         * @var        dcNamespace
+         */
+        $settings = dcCore::app()->blog->settings->get(My::id());
+
+        // Add fieldset for plugin options
         echo
-        '<div class="fieldset" id="adaptiveimages_settings"><h4>' . __('Adaptive Images') . '</h4>' .
+        (new Fieldset('adaptiveimages_settings'))
+        ->legend((new Legend(__('Adaptive Images'))))
+        ->fields([
+            (new Para())->items([
+                (new Checkbox('adaptiveimages_enabled', $settings->enabled))
+                    ->value(1)
+                    ->label((new Label(__('Enable Adaptive Images'), Label::INSIDE_TEXT_AFTER))),
+            ]),
+            (new Div())->class(['two-cols', 'clearfix'])->items([
+                (new Div())->class('col')->items([
+                    (new Text('h5', __('Options'))),
+                    (new Para())->items([
+                        (new Number('adaptiveimages_max_width_1x', 0, 9_999_999, (int) $settings->max_width_1x))
+                            ->default(640)
+                            ->label((new Label(__('Default maximum display width for images:'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                    (new Para())->class(['form-note', 'clear'])->items([
+                        (new Text(null, __('The Default maximum display width for images is 640 pixels.'))),
+                    ]),
+                    (new Para())->items([
+                        (new Number('adaptiveimages_min_width_1x', 0, 9_999_999, (int) $settings->min_width_1x))
+                            ->default(320)
+                            ->label((new Label(__('Default minimum display width for images:'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                    (new Para())->class(['form-note', 'clear'])->items([
+                        (new Text(null, __('Smaller images will be unchanged (320 pixels by default).'))),
+                    ]),
 
-        '<p><label for="adaptiveimages_enabled" class="classic">' .
-        form::checkbox('adaptiveimages_enabled', '1', $settings->adaptiveimages->enabled) .
-        __('Enable Adaptive Images') . '</label></p>' .
-
-        '<div class="two-cols clearfix">' .
-
-        '<div class="col">' .
-        '<h5>' . __('Options') . '</h5>' .
-        '<p><label for="adaptiveimages_max_width_1x" class="classic">' . __('Default maximum display width for images:') . '</label> ' .
-        form::field('adaptiveimages_max_width_1x', 4, 4, (int) $settings->adaptiveimages->max_width_1x) .
-        '</p>' .
-        '<p class="clear form-note">' . __('The Default maximum display width for images is 640 pixels.') . '</p>' .
-        '<p><label for="adaptiveimages_min_width_1x" class="classic">' . __('Default minimum display width for images:') . '</label> ' .
-        form::field('adaptiveimages_min_width_1x', 4, 4, (int) $settings->adaptiveimages->min_width_1x) .
-        '</p>' .
-        '<p class="clear form-note">' . __('Smaller images will be unchanged (320 pixels by default).') . '</p>' .
-        '<p><label for="adaptiveimages_lowsrc_jpg_bgcolor" class="classic">' .
-        __('Backgound color for JPG images produced from transparent one:') . '</label> ' .
-        form::color('adaptiveimages_lowsrc_jpg_bgcolor', ['default' => $settings->adaptiveimages->lowsrc_jpg_bgcolor]) .
-        '</p>' .
-        '<p class="clear form-note">' . __('Usually the same background color as your blog (#ffffff by default).') . '</p>' .
-        '</div>' .  // end class="col"
-
-        '<div class="col">' .
-        '<h5>' . __('JPEG compression quality (0 to 100):') . '</h5>' .
-        '<p><label for="adaptiveimages_lowsrc_jpg_quality" class="classic">' .
-        __('Preview images:') . '</label> ' .
-        form::field('adaptiveimages_lowsrc_jpg_quality', 3, 3, (int) $settings->adaptiveimages->lowsrc_jpg_quality) .
-        __('(10 by default)') . '</p>' .
-        '<p><label for="adaptiveimages_x10_jpg_quality" class="classic">' .
-        __('Standard images:') . '</label> ' .
-        form::field('adaptiveimages_x10_jpg_quality', 3, 3, (int) $settings->adaptiveimages->x10_jpg_quality) .
-        __('(75 by default)') . '</p>' .
-        '<p><label for="adaptiveimages_x15_jpg_quality" class="classic">' .
-        __('1.5x images:') . '</label> ' .
-        form::field('adaptiveimages_x15_jpg_quality', 3, 3, (int) $settings->adaptiveimages->x15_jpg_quality) .
-        __('(65 by default)') . '</p>' .
-        '<p><label for="adaptiveimages_x20_jpg_quality" class="classic">' .
-        __('2x images:') . '</label> ' .
-        form::field('adaptiveimages_x20_jpg_quality', 3, 3, (int) $settings->adaptiveimages->x20_jpg_quality) .
-        __('(45 by default)') . '</p>' .
-
-        '<h5>' . __('Advanced options') . '</h5>' .
-        '<p><label for"adaptiveimages_on_demand" class="classic">' .
-        form::checkbox('adaptiveimages_on_demand', '1', $settings->adaptiveimages->on_demand) .
-        __('Deliver adaptive images on demand') . '</label></p>' .
-        '<p class="clear form-note warn">' . __('Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!') . '</p>' .
-        '<p><label for="adaptiveimages_default_bkpts" class="classic">' .
-        __('Breakpoints (in pixel) for image generation (comma saparated values):') . '</label> ' .
-        form::field('adaptiveimages_default_bkpts', 40, 40, $settings->adaptiveimages->default_bkpts) . '</p>' .
-        '<p class="clear form-note">' . __('By default: 160,320,480,640,960,1440.') . '</p>' .
-        '</div>' .  // end class="col"
-
-        '</div>' .  // end class="two-cols"
-        '</div>';
+                    (new Para())->items([
+                        (new Color('adaptiveimages_lowsrc_jpg_bgcolor', $settings->lowsrc_jpg_bgcolor))
+                            ->default('#ffffff')
+                            ->label((new Label(__('Backgound color for JPG images produced from transparent one:'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                    (new Para())->class(['form-note', 'clear'])->items([
+                        (new Text(null, __('Usually the same background color as your blog (#ffffff by default).'))),
+                    ]),
+                ]),
+                (new Div())->class('col')->items([
+                    (new Text('h5', __('JPEG compression quality (0 to 100):'))),
+                    (new Para())->items([
+                        (new Number('adaptiveimages_lowsrc_jpg_quality', 0, 100, (int) $settings->lowsrc_jpg_quality))
+                            ->default(10)
+                            ->label((new Label(__('Preview images (10 by default):'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                    (new Para())->items([
+                        (new Number('adaptiveimages_x10_jpg_quality', 0, 100, (int) $settings->x10_jpg_quality))
+                            ->default(75)
+                            ->label((new Label(__('Standard images (75 by default):'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                    (new Para())->items([
+                        (new Number('adaptiveimages_x15_jpg_quality', 0, 100, (int) $settings->x15_jpg_quality))
+                            ->default(65)
+                            ->label((new Label(__('1.5x images (65 by default):'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                    (new Para())->items([
+                        (new Number('adaptiveimages_x20_jpg_quality', 0, 100, (int) $settings->x20_jpg_quality))
+                            ->default(45)
+                            ->label((new Label(__('2x images: (45 by default)'), Label::INSIDE_TEXT_BEFORE))),
+                    ]),
+                ]),
+            ]),
+            (new Text('h5', __('Advanced options'))),
+            (new Para())->items([
+                (new Checkbox('adaptiveimages_on_demand', $settings->on_demand))
+                    ->value(1)
+                    ->label((new Label(__('Deliver adaptive images on demand'), Label::INSIDE_TEXT_AFTER))),
+            ]),
+            (new Para())->class(['form-note', 'clear', 'warn'])->items([
+                (new Text(null, __('Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!'))),
+            ]),
+            (new Para())->items([
+                (new Input('adaptiveimages_default_bkpts'))
+                    ->size(40)
+                    ->maxlength(40)
+                    ->value($settings->default_bkpts)
+                    ->default('160,320,480,640,960,1440')
+                    ->label((new Label(__('Breakpoints (in pixel) for image generation (comma saparated values):'), Label::INSIDE_TEXT_BEFORE))),
+            ]),
+            (new Para())->class(['form-note', 'clear'])->items([
+                (new Text(null, __('By default: 160,320,480,640,960,1440.'))),
+            ]),
+        ])
+        ->render();
     }
 
     /**
      * adminBeforeBlogSettingsUpdate behaviour callback: save plugin's settings
-     *
-     * @param  dcSettings $settings
      */
-    public static function adminBeforeBlogSettingsUpdate($settings)
+    public static function adminBeforeBlogSettingsUpdate()
     {
-        $settings->adaptiveimages->put('enabled', !empty($_POST['adaptiveimages_enabled']), 'boolean');
-        $settings->adaptiveimages->put('max_width_1x', abs((int) $_POST['adaptiveimages_max_width_1x']), 'integer');
-        $settings->adaptiveimages->put('min_width_1x', abs((int) $_POST['adaptiveimages_min_width_1x']), 'integer');
-        $settings->adaptiveimages->put('lowsrc_jpg_bgcolor', self::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), 'string');
-        $settings->adaptiveimages->put('on_demand', !empty($_POST['adaptiveimages_on_demand']), 'boolean');
-        $settings->adaptiveimages->put('default_bkpts', self::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), 'string');
-        $settings->adaptiveimages->put('lowsrc_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), 'integer');
-        $settings->adaptiveimages->put('x10_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x10_jpg_quality']), 'integer');
-        $settings->adaptiveimages->put('x15_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x15_jpg_quality']), 'integer');
-        $settings->adaptiveimages->put('x20_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), 'integer');
+        /**
+         * @var        dcNamespace
+         */
+        $settings = dcCore::app()->blog->settings->get(My::id());
+
+        $settings->put('enabled', !empty($_POST['adaptiveimages_enabled']), 'boolean');
+        $settings->put('max_width_1x', abs((int) $_POST['adaptiveimages_max_width_1x']), 'integer');
+        $settings->put('min_width_1x', abs((int) $_POST['adaptiveimages_min_width_1x']), 'integer');
+        $settings->put('lowsrc_jpg_bgcolor', self::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), 'string');
+        $settings->put('on_demand', !empty($_POST['adaptiveimages_on_demand']), 'boolean');
+        $settings->put('default_bkpts', self::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), 'string');
+        $settings->put('lowsrc_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), 'integer');
+        $settings->put('x10_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x10_jpg_quality']), 'integer');
+        $settings->put('x15_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x15_jpg_quality']), 'integer');
+        $settings->put('x20_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), 'integer');
     }
 
     /**

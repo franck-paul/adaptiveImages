@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 adaptiveImages module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-04 22:00+0200\n"
+"POT-Creation-Date: 2023-05-06 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,28 +52,16 @@ msgstr ""
 msgid "JPEG compression quality (0 to 100):"
 msgstr ""
 
-msgid "Preview images:"
+msgid "Preview images (10 by default):"
 msgstr ""
 
-msgid "(10 by default)"
+msgid "Standard images (75 by default):"
 msgstr ""
 
-msgid "Standard images:"
+msgid "1.5x images (65 by default):"
 msgstr ""
 
-msgid "(75 by default)"
-msgstr ""
-
-msgid "1.5x images:"
-msgstr ""
-
-msgid "(65 by default)"
-msgstr ""
-
-msgid "2x images:"
-msgstr ""
-
-msgid "(45 by default)"
+msgid "2x images: (45 by default)"
 msgstr ""
 
 msgid "Advanced options"

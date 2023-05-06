@@ -34,21 +34,29 @@ class FrontendBehaviors
             return;
         }
 
-        if (dcCore::app()->blog->settings->adaptiveimages->enabled) {
+        /**
+         * @var        dcNamespace
+         */
+        $settings = dcCore::app()->blog->settings->get(My::id());
+
+        if ($settings->enabled) {
+            /**
+             * @var        AdaptiveImages
+             */
             $ai = Core::getInstance();
 
             // Set properties
-            $ai->destDirectory  = $ai->realPath2relativePath(dcCore::app()->blog->public_path . '/.adapt-img/'); // @phpstan-ignore-line
-            $ai->onDemandImages = (bool) dcCore::app()->blog->settings->adaptiveimages->on_demand;               // @phpstan-ignore-line
+            $ai->destDirectory  = $ai->realPath2relativePath(dcCore::app()->blog->public_path . '/.adapt-img/');
+            $ai->onDemandImages = (bool) $settings->on_demand;
 
             // Set options
-            if ($min_width_1x = (int) dcCore::app()->blog->settings->adaptiveimages->min_width_1x) {
+            if ($min_width_1x = (int) $settings->min_width_1x) {
                 $ai->minWidth1x = $min_width_1x;
             }
-            if (($lowsrc_jpg_bgcolor = dcCore::app()->blog->settings->adaptiveimages->lowsrc_jpg_bgcolor) != '') {
+            if (($lowsrc_jpg_bgcolor = $settings->lowsrc_jpg_bgcolor) != '') {
                 $ai->lowsrcJpgBgColor = $lowsrc_jpg_bgcolor;
             }
-            if (($default_bkpts = dcCore::app()->blog->settings->adaptiveimages->default_bkpts) != '') {
+            if (($default_bkpts = $settings->default_bkpts) != '') {
                 $ai->defaultBkpts = explode(',', $default_bkpts);
             }
 
@@ -62,7 +70,7 @@ class FrontendBehaviors
             }
 
             // Do transformation
-            $max_width_1x      = (int) dcCore::app()->blog->settings->adaptiveimages->max_width_1x;
+            $max_width_1x      = (int) $settings->max_width_1x;
             $html              = $ai->adaptHTMLPage($result['content'], ($max_width_1x ?: null));
             $result['content'] = $html;
         }
