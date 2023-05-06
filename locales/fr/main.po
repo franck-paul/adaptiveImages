@@ -71,7 +71,7 @@ msgid "1.5x images (65 by default):"
 msgstr "Images x 1,5 (65 par défaut) :"
 
 msgid "2x images: (45 by default):"
-msgstr "Image x 2 (45 par défaut) :"
+msgstr "Images x 2 (45 par défaut) :"
 
 msgid "Advanced options"
 msgstr "Options avancées"
