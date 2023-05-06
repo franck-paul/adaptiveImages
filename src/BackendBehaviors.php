@@ -106,7 +106,7 @@ class BackendBehaviors
                     (new Para())->items([
                         (new Number('adaptiveimages_x20_jpg_quality', 0, 100, (int) $settings->x20_jpg_quality))
                             ->default(45)
-                            ->label((new Label(__('2x images: (45 by default)'), Label::INSIDE_TEXT_BEFORE))),
+                            ->label((new Label(__('2x images: (45 by default):'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
                 ]),
             ]),

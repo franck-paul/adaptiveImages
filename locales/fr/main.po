@@ -1,29 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # This file is put in the public domain.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 # Translators:
 # Franck Paul <carnet.franck.paul@gmail.com>, 2023
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 adaptiveImages module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-06 09:48+0200\n"
+"POT-Creation-Date: 2023-05-06 09:57+0200\n"
 "PO-Revision-Date: 2023-05-04 20:00+0000\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
 "Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-msgid ""
-"Implements the 3-layers technique for Adaptive Images generation (by Nursit)"
-msgstr ""
-"Implémente la technique à 3 couches pour les images adaptatives (par Nursit)"
+msgid "Implements the 3-layers technique for Adaptive Images generation (by Nursit)"
+msgstr "Implémente la technique à 3 couches pour les images adaptatives (par Nursit)"
 
 msgid "adaptiveImages"
 msgstr "adaptiveImages"
@@ -50,13 +48,10 @@ msgid "Smaller images will be unchanged (320 pixels by default)."
 msgstr "Les images plus petites resteront inchangées (320 pixels par défaut)."
 
 msgid "Backgound color for JPG images produced from transparent one:"
-msgstr ""
-"Couleur de fond pour les images JPG produites à partir de transparentes :"
+msgstr "Couleur de fond pour les images JPG produites à partir de transparentes :"
 
 msgid "Usually the same background color as your blog (#ffffff by default)."
-msgstr ""
-"En général la même que la couleur de fond de votre blog (#ffffff par "
-"défaut)."
+msgstr "En général la même que la couleur de fond de votre blog (#ffffff par défaut)."
 
 msgid "JPEG compression quality (0 to 100):"
 msgstr "Qualité de la compression JPEG (0 à 100) :"
@@ -70,7 +65,8 @@ msgstr "Images standards (75 par défaut) :"
 msgid "1.5x images (65 by default):"
 msgstr "Images x 1,5 (65 par défaut) :"
 
-msgid "2x images: (45 by default)"
+#, fuzzy
+msgid "2x images: (45 by default):"
 msgstr "Images x 2 (45 par défaut) :"
 
 msgid "Advanced options"
@@ -79,17 +75,11 @@ msgstr "Options avancées"
 msgid "Deliver adaptive images on demand"
 msgstr "Délivrer les images adaptatives à la demande"
 
-msgid ""
-"Warning, this option needs an Apache RewriteRule or equivalent (see "
-"README.md)!"
-msgstr ""
-"Attention, cette option nécessite une directive 'RewriteRule' Apache ou "
-"équivalent (voir README.md) !"
+msgid "Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!"
+msgstr "Attention, cette option nécessite une directive 'RewriteRule' Apache ou équivalent (voir README.md) !"
 
 msgid "Breakpoints (in pixel) for image generation (comma saparated values):"
-msgstr ""
-"Seuils (en pixel) pour les variantes d'images (valeurs séparées par des "
-"virgules) :"
+msgstr "Seuils (en pixel) pour les variantes d'images (valeurs séparées par des virgules) :"
 
 msgid "By default: 160,320,480,640,960,1440."
 msgstr "Par défaut : 160,320,480,640,960,1440."
@@ -103,11 +93,5 @@ msgstr "Le cache des images adaptatives a été vidé."
 msgid "Failed to empty adaptive images cache directory."
 msgstr "Impossible de vider le cache des images adaptatives."
 
-msgid ""
-"It may be useful to empty this cache when modifying breakpoints or quality "
-"of JPEG compression. Notice : with some hosters, the adaptive images cache "
-"cannot be emptied with this plugin."
-msgstr ""
-"Il peut être utile de vider ce cache si vous modifiez les seuils ou les "
-"qualités de compression JPEG. Note : avec certains hébergeurs, le cache des "
-"images adaptatives ne pourra être vidé avec ce plugin."
+msgid "It may be useful to empty this cache when modifying breakpoints or quality of JPEG compression. Notice : with some hosters, the adaptive images cache cannot be emptied with this plugin."
+msgstr "Il peut être utile de vider ce cache si vous modifiez les seuils ou les qualités de compression JPEG. Note : avec certains hébergeurs, le cache des images adaptatives ne pourra être vidé avec ce plugin."
