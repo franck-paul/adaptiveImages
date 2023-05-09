@@ -22,7 +22,7 @@ class Prepend extends dcNsProcess
 {
     public static function init(): bool
     {
-        static::$init = defined('DC_RC_PATH');
+        static::$init = My::checkContext(My::PREPEND);
 
         return static::$init;
     }
