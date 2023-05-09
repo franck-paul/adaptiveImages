@@ -39,6 +39,7 @@ class Install extends dcNsProcess
             if (version_compare((string) $old_version, '1.0', '<')) {
                 // Rename settings namespace
                 if (dcCore::app()->blog->settings->exists('adaptiveimages')) {
+                    dcCore::app()->blog->settings->delNamespace(My::id());
                     dcCore::app()->blog->settings->renNamespace('adaptiveimages', My::id());
                 }
 
