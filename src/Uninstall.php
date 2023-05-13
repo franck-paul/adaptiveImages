@@ -52,6 +52,11 @@ class Uninstall extends dcNsProcess
                 // ['delete', $cache], // Delete cache folder
             ],
 
+            // Specific cache
+            'ai_caches' => [
+                ['delete', $module], // Delete cache folder
+            ],
+
             // Var
             'vars' => [
                 // ['delete', implode(DIRECTORY_SEPARATOR, ['plugins', $var])],    // Delete var plugin folder
@@ -113,6 +118,11 @@ class Uninstall extends dcNsProcess
             'caches' => [
                 // ['empty', $cache],  // Empty cache folder
                 // ['delete', $cache], // Delete cache folder
+            ],
+
+            // Specific cache
+            'ai_caches' => [
+                // ['delete', $module], // Delete cache folder
             ],
 
             // Var

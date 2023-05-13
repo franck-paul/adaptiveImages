@@ -37,6 +37,15 @@ class Prepend extends dcNsProcess
 
         dcCore::app()->url->register('adapt-img', 'adapt-img', '^adapt-img/(.+)?$', [FrontendUrl::class, 'onDemand']);
 
+        if (dcCore::app()->plugins->moduleExists('Uninstaller')) {
+            // Add cleaners to Uninstaller
+            dcCore::app()->addBehavior('UninstallerCleanersConstruct', function (\Dotclear\Plugin\Uninstaller\CleanersStack $cleaners): void {
+                $cleaners
+                    ->set(new Cleaner\Caches())
+                ;
+            });
+        }
+
         return true;
     }
 }
