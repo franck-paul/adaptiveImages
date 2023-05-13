@@ -49,22 +49,11 @@ class Install extends dcNsProcess
                         $settings->rename('adaptiveimages_' . $name, $name);
                     }
                 };
-
                 $settings = dcCore::app()->blog->settings->get(My::id());
-
-                $rename('enabled', $settings);
-                $rename('max_width_1x', $settings);
-                $rename('min_width_1x', $settings);
-                $rename('lowsrc_jpg_bgcolor', $settings);
-                $rename('on_demand', $settings);
-                $rename('default_bkpts', $settings);
-                $rename('lowsrc_jpg_quality', $settings);
-                $rename('x10_jpg_quality', $settings);
-                $rename('x15_jpg_quality', $settings);
-                $rename('x20_jpg_quality', $settings);
+                foreach (['enabled', 'max_width_1x', 'min_width_1x', 'lowsrc_jpg_bgcolor', 'on_demand', 'default_bkpts', 'lowsrc_jpg_quality', 'x10_jpg_quality', 'x15_jpg_quality', 'x20_jpg_quality'] as $name) {
+                    $rename($name, $settings);
+                }
             }
-
-            return true;
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
         }

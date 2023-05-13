@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\adaptiveImages;
 
 use dcCore;
+use dcNamespace;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Color;
 use Dotclear\Helper\Html\Form\Div;
@@ -144,16 +145,16 @@ class BackendBehaviors
          */
         $settings = dcCore::app()->blog->settings->get(My::id());
 
-        $settings->put('enabled', !empty($_POST['adaptiveimages_enabled']), 'boolean');
-        $settings->put('max_width_1x', abs((int) $_POST['adaptiveimages_max_width_1x']), 'integer');
-        $settings->put('min_width_1x', abs((int) $_POST['adaptiveimages_min_width_1x']), 'integer');
-        $settings->put('lowsrc_jpg_bgcolor', self::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), 'string');
-        $settings->put('on_demand', !empty($_POST['adaptiveimages_on_demand']), 'boolean');
-        $settings->put('default_bkpts', self::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), 'string');
-        $settings->put('lowsrc_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), 'integer');
-        $settings->put('x10_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x10_jpg_quality']), 'integer');
-        $settings->put('x15_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x15_jpg_quality']), 'integer');
-        $settings->put('x20_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), 'integer');
+        $settings->put('enabled', !empty($_POST['adaptiveimages_enabled']), dcNamespace::NS_BOOL);
+        $settings->put('max_width_1x', abs((int) $_POST['adaptiveimages_max_width_1x']), dcNamespace::NS_INT);
+        $settings->put('min_width_1x', abs((int) $_POST['adaptiveimages_min_width_1x']), dcNamespace::NS_INT);
+        $settings->put('lowsrc_jpg_bgcolor', self::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), dcNamespace::NS_STRING);
+        $settings->put('on_demand', !empty($_POST['adaptiveimages_on_demand']), dcNamespace::NS_BOOL);
+        $settings->put('default_bkpts', self::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), dcNamespace::NS_STRING);
+        $settings->put('lowsrc_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), dcNamespace::NS_INT);
+        $settings->put('x10_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x10_jpg_quality']), dcNamespace::NS_INT);
+        $settings->put('x15_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x15_jpg_quality']), dcNamespace::NS_INT);
+        $settings->put('x20_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), dcNamespace::NS_INT);
     }
 
     /**
