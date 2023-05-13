@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\adaptiveImages\Cleaner;
 
 use dcCore;
 use Dotclear\Helper\File\Files;
+use Dotclear\Plugin\adaptiveImages\My;
 use Dotclear\Plugin\Uninstaller\{
     ActionDescriptor,
     CleanerDescriptor,
@@ -59,10 +60,10 @@ class Caches extends CleanerParent
 
         return $res;
 
-        $path = implode(DIRECTORY_SEPARATOR, [dcCore::app()->blog->public_path, '.adapt_img']);
+        $path = implode(DIRECTORY_SEPARATOR, [dcCore::app()->blog->public_path, My::CACHE]);
         if (is_dir($path)) {
             $res[] = new ValueDescriptor(
-                ns:    '.adapt_img',
+                ns:    My::CACHE,
                 count: 1
             );
         }
@@ -72,7 +73,7 @@ class Caches extends CleanerParent
 
     public function execute(string $action, string $ns): bool
     {
-        $cache_dir = dcCore::app()->blog->public_path . '/.adapt-img/';
+        $cache_dir = implode(DIRECTORY_SEPARATOR, [dcCore::app()->blog->public_path, My::CACHE]);
         if ($action == 'delete') {
             if (is_dir($cache_dir)) {
                 Files::deltree($cache_dir);

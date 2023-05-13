@@ -22,6 +22,8 @@ use dcPage;
  */
 class My
 {
+    public const CACHE = '.adapt-img';
+
     /**
      * This module id
      */

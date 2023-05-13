@@ -47,7 +47,7 @@ class FrontendBehaviors
             $ai = Core::getInstance();
 
             // Set properties
-            $ai->destDirectory  = $ai->realPath2relativePath(dcCore::app()->blog->public_path . '/.adapt-img/');
+            $ai->destDirectory  = $ai->realPath2relativePath(dcCore::app()->blog->public_path . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
             $ai->onDemandImages = (bool) $settings->on_demand;
 
             // Set options

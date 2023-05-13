@@ -33,7 +33,7 @@ class FrontendUrl extends dcUrlHandlers
         $AdaptiveImages = Core::getInstance();
 
         /* @phpstan-ignore-next-line */
-        $AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath(dcCore::app()->blog->public_path . '/.adapt-img/');
+        $AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath(dcCore::app()->blog->public_path . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
 
         try {
             $AdaptiveImages->deliverBkptImage($args);

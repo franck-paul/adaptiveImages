@@ -33,7 +33,7 @@ class Maintenance extends MaintenanceTask
 
     public function execute()
     {
-        $cache_dir = dcCore::app()->blog->public_path . '/.adapt-img/';
+        $cache_dir = dcCore::app()->blog->public_path . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR;
         if (is_dir($cache_dir)) {
             Files::deltree($cache_dir);
         }
