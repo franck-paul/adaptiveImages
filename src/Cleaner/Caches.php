@@ -57,9 +57,7 @@ class Caches extends CleanerParent
     public function values(): array
     {
         $res = [];
-
-        return $res;
-
+        /* Seems not necessary:
         $path = implode(DIRECTORY_SEPARATOR, [dcCore::app()->blog->public_path, My::CACHE]);
         if (is_dir($path)) {
             $res[] = new ValueDescriptor(
@@ -67,6 +65,7 @@ class Caches extends CleanerParent
                 count: 1
             );
         }
+        */
 
         return $res;
     }
