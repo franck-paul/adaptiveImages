@@ -26,6 +26,7 @@ use Dotclear\Helper\Html\Form\Legend;
 use Dotclear\Helper\Html\Form\Number;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Plugin\adaptiveImages\MaintenanceTask\AdaptiveImagesCache;
 
 class BackendBehaviors
 {
@@ -35,7 +36,7 @@ class BackendBehaviors
      */
     public static function dcMaintenanceInit($maintenance)
     {
-        $maintenance->addTask(Maintenance::class);
+        $maintenance->addTask(AdaptiveImagesCache::class);
     }
 
     /**

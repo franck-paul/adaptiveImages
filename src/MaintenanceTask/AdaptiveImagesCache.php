@@ -12,13 +12,14 @@
  */
 declare(strict_types=1);
 
-namespace Dotclear\Plugin\adaptiveImages;
+namespace Dotclear\Plugin\adaptiveImages\MaintenanceTask;
 
 use dcCore;
 use Dotclear\Helper\File\Files;
+use Dotclear\Plugin\adaptiveImages\My;
 use Dotclear\Plugin\maintenance\MaintenanceTask;
 
-class Maintenance extends MaintenanceTask
+class AdaptiveImagesCache extends MaintenanceTask
 {
     protected $group = 'purge';
 
