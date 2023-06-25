@@ -132,7 +132,7 @@ class Core extends AdaptiveImages
      */
     protected function imgMarkupHook(&$markup, $originalClass, $originalStyle)
     {
-        if ((strpos($originalStyle, 'display:block;') === false) && (strpos($originalStyle, 'display: block;') === false)) {
+        if ((strpos((string) $originalStyle, 'display:block;') === false) && (strpos((string) $originalStyle, 'display: block;') === false)) {
             // Inline image
             $wrapper = 'span';
             $style   = '';
@@ -141,7 +141,7 @@ class Core extends AdaptiveImages
             $wrapper = 'div';
             $style   = ' text-align:center;';
         }
-        $markup = sprintf('<%1$s class="%2$s" style="%3$s">%4$s</%1$s>', $wrapper, $originalClass, $originalStyle . $style, $markup);
+        $markup = sprintf('<%1$s class="%2$s" style="%3$s">%4$s</%1$s>', $wrapper, $originalClass, (string) $originalStyle . $style, $markup);
 
         return $markup;
     }
