@@ -48,7 +48,7 @@ class FrontendBehaviors
 
             // Set properties
             $ai->destDirectory  = $ai->realPath2relativePath(dcCore::app()->blog->public_path . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
-            $ai->onDemandImages = (bool) $settings->on_demand;
+            $ai->onDemandImages = (int) $settings->on_demand;
 
             // Set options
             if ($min_width_1x = (int) $settings->min_width_1x) {
