@@ -14,29 +14,26 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
+use Autoloader;
 use dcCore;
-use dcNsProcess;
-use Dotclear\App;
+use Dotclear\Core\Process;
 
-class Prepend extends dcNsProcess
+class Prepend extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::PREPEND);
-
-        return static::$init;
+        return self::status(My::checkContext(My::PREPEND));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
-        App::autoload()->addNamespace('Nursit', implode(DIRECTORY_SEPARATOR, [My::path(), 'lib']));
+        Autoloader::me()->addNamespace('Nursit', implode(DIRECTORY_SEPARATOR, [My::path(), 'lib']));
 
-        dcCore::app()->url->register('adapt-img', 'adapt-img', '^adapt-img/(.+)?$', [FrontendUrl::class, 'onDemand']);
+        dcCore::app()->url->register('adapt-img', 'adapt-img', '^adapt-img/(.+)?$', FrontendUrl::onDemand(...));
 
         if (dcCore::app()->plugins->moduleExists('Uninstaller')) {
             // Add cleaners to Uninstaller

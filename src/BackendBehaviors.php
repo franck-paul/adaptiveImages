@@ -27,14 +27,15 @@ use Dotclear\Helper\Html\Form\Number;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Text;
 use Dotclear\Plugin\adaptiveImages\MaintenanceTask\AdaptiveImagesCache;
+use Dotclear\Plugin\maintenance\Maintenance;
 
 class BackendBehaviors
 {
     /**
      * dcMaintenanceInit Add cache emptying maintenance task
-     * @param  \dcMaintenance $maintenance
+     * @param  Maintenance $maintenance
      */
-    public static function dcMaintenanceInit($maintenance)
+    public static function dcMaintenanceInit(Maintenance $maintenance)
     {
         $maintenance->addTask(AdaptiveImagesCache::class);
     }
@@ -42,7 +43,7 @@ class BackendBehaviors
     /**
      * adminBlogPreferencesForm behaviour callback: display plugin's settings form
      */
-    public static function adminBlogPreferencesForm()
+    public static function adminBlogPreferencesFormV2()
     {
         /**
          * @var        \dcNamespace
