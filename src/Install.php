@@ -47,7 +47,7 @@ class Install extends Process
                         $settings->rename('adaptiveimages_' . $name, $name);
                     }
                 };
-                $settings = dcCore::app()->blog->settings->get(My::id());
+                $settings = My::settings();
                 foreach (['enabled', 'max_width_1x', 'min_width_1x', 'lowsrc_jpg_bgcolor', 'on_demand', 'default_bkpts', 'lowsrc_jpg_quality', 'x10_jpg_quality', 'x15_jpg_quality', 'x20_jpg_quality'] as $name) {
                     $rename($name, $settings);
                 }

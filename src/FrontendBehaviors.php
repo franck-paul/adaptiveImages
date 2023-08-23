@@ -38,7 +38,7 @@ class FrontendBehaviors
         /**
          * @var        \dcNamespace
          */
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         if ($settings->enabled) {
             /**

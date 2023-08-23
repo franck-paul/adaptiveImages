@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
-use dcCore;
 use dcNamespace;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Color;
@@ -48,7 +47,7 @@ class BackendBehaviors
         /**
          * @var        \dcNamespace
          */
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         // Add fieldset for plugin options
         echo
@@ -145,7 +144,7 @@ class BackendBehaviors
         /**
          * @var        \dcNamespace
          */
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
 
         $settings->put('enabled', !empty($_POST['adaptiveimages_enabled']), dcNamespace::NS_BOOL);
         $settings->put('max_width_1x', abs((int) $_POST['adaptiveimages_max_width_1x']), dcNamespace::NS_INT);
