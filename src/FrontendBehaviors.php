@@ -25,19 +25,16 @@ class FrontendBehaviors
     /**
      * Behaviour called before serving HTML/XML document
      *
-     * @param ArrayObject $result
+     * @param ArrayObject<string, mixed> $result
      */
-    public static function urlHandlerServeDocument(ArrayObject $result)
+    public static function urlHandlerServeDocument(ArrayObject $result): string
     {
         // Do not transform for feed and xlmrpc URLs
         $excluded = ['feed', 'xmlrpc'];
         if (in_array(dcCore::app()->url->type, $excluded)) {
-            return;
+            return '';
         }
 
-        /**
-         * @var        \dcNamespace
-         */
         $settings = My::settings();
 
         if ($settings->enabled) {
@@ -75,5 +72,7 @@ class FrontendBehaviors
             $html              = $ai->adaptHTMLPage($result['content'], ($max_width_1x ?: null));
             $result['content'] = $html;
         }
+
+        return '';
     }
 }

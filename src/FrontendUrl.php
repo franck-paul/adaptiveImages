@@ -23,9 +23,9 @@ class FrontendUrl extends dcUrlHandlers
     /**
      * URL handler for "on demand" adaptive images
      *
-     * @param string $args
+     * @param null|string $args
      */
-    public static function onDemand($args)
+    public static function onDemand(?string $args): void
     {
         /**
          * @var        Core

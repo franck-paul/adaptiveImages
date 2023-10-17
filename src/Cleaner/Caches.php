@@ -56,7 +56,6 @@ class Caches extends CleanerParent
 
     public function values(): array
     {
-        $res = [];
         /* Seems not necessary:
         $path = implode(DIRECTORY_SEPARATOR, [dcCore::app()->blog->public_path, My::CACHE]);
         if (is_dir($path)) {
@@ -67,7 +66,7 @@ class Caches extends CleanerParent
         }
         */
 
-        return $res;
+        return [];
     }
 
     public function execute(string $action, string $ns): bool

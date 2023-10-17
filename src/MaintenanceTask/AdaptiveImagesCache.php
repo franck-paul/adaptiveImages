@@ -21,7 +21,7 @@ use Dotclear\Plugin\maintenance\MaintenanceTask;
 
 class AdaptiveImagesCache extends MaintenanceTask
 {
-    protected $group = 'purge';
+    protected string $group = 'purge';
 
     protected function init(): void
     {

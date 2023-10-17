@@ -43,16 +43,6 @@ class Core extends AdaptiveImages
     }
 
     /**
-     * Retrieve the AdaptiveImages object
-     *
-     * @return AdaptiveImages
-     */
-    public static function getInstance()
-    {
-        return parent::getInstance();
-    }
-
-    /**
      * Translate full path to relative path if possible
      *
      * @param string $path

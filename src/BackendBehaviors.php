@@ -34,19 +34,18 @@ class BackendBehaviors
      * dcMaintenanceInit Add cache emptying maintenance task
      * @param  Maintenance $maintenance
      */
-    public static function dcMaintenanceInit(Maintenance $maintenance)
+    public static function dcMaintenanceInit(Maintenance $maintenance): string
     {
         $maintenance->addTask(AdaptiveImagesCache::class);
+
+        return '';
     }
 
     /**
      * adminBlogPreferencesForm behaviour callback: display plugin's settings form
      */
-    public static function adminBlogPreferencesFormV2()
+    public static function adminBlogPreferencesFormV2(): string
     {
-        /**
-         * @var        \dcNamespace
-         */
         $settings = My::settings();
 
         // Add fieldset for plugin options
@@ -134,16 +133,15 @@ class BackendBehaviors
             ]),
         ])
         ->render();
+
+        return '';
     }
 
     /**
      * adminBeforeBlogSettingsUpdate behaviour callback: save plugin's settings
      */
-    public static function adminBeforeBlogSettingsUpdate()
+    public static function adminBeforeBlogSettingsUpdate(): string
     {
-        /**
-         * @var        \dcNamespace
-         */
         $settings = My::settings();
 
         $settings->put('enabled', !empty($_POST['adaptiveimages_enabled']), dcNamespace::NS_BOOL);
@@ -156,15 +154,18 @@ class BackendBehaviors
         $settings->put('x10_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x10_jpg_quality']), dcNamespace::NS_INT);
         $settings->put('x15_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x15_jpg_quality']), dcNamespace::NS_INT);
         $settings->put('x20_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), dcNamespace::NS_INT);
+
+        return '';
     }
 
     /**
      * Check and return an hexadecimal web color as string or empty string on error
      *
      * @param  string $c color as input on form
+     *
      * @return string    validated color or empty
      */
-    public static function adjustColor($c)
+    private static function adjustColor(string $c): string
     {
         if ($c === '') {
             return '';
@@ -187,9 +188,10 @@ class BackendBehaviors
      * Check and return a sorted list of values separated by comma as string or empty string on error
      *
      * @param  string $b breakpoints separated by comma
+     *
      * @return string    validated and sorted list of breakpoints separated by comma or empty
      */
-    public static function adjustBreakpoints($b)
+    public static function adjustBreakpoints(string $b): string
     {
         if ($b === '') {
             return '';
@@ -206,10 +208,12 @@ class BackendBehaviors
 
     /**
      * Check and return JPEG compression quality (0 to 100)
+     *
      * @param  string $q
+     *
      * @return integer
      */
-    public static function adjustJPGQuality($q)
+    public static function adjustJPGQuality(string $q): int
     {
         if ($q === '') {
             return 0;
