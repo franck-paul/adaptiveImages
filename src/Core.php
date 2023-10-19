@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
-use dcCore;
+use Dotclear\App;
 use Nursit\AdaptiveImages;
 
 class Core extends AdaptiveImages
@@ -35,8 +35,8 @@ class Core extends AdaptiveImages
      */
     protected function __construct()
     {
-        $this->media_url  = rtrim((string) dcCore::app()->blog->settings->system->public_url, '/') . '/';
-        $this->media_path = dcCore::app()->blog->public_path;
+        $this->media_url  = rtrim((string) App::blog()->settings()->system->public_url, '/') . '/';
+        $this->media_path = App::blog()->publicPath();
         $this->media_path = $this->realPath2relativePath($this->media_path);
 
         parent::__construct();

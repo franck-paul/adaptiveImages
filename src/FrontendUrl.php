@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
-use dcCore;
 use dcUrlHandlers;
+use Dotclear\App;
 use Exception;
 
 class FrontendUrl extends dcUrlHandlers
@@ -33,7 +33,7 @@ class FrontendUrl extends dcUrlHandlers
         $AdaptiveImages = Core::getInstance();
 
         /* @phpstan-ignore-next-line */
-        $AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath(dcCore::app()->blog->public_path . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
+        $AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath(App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
 
         try {
             $AdaptiveImages->deliverBkptImage($args);

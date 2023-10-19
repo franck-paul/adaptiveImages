@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages\MaintenanceTask;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\File\Files;
 use Dotclear\Plugin\adaptiveImages\My;
 use Dotclear\Plugin\maintenance\MaintenanceTask;
@@ -34,7 +34,7 @@ class AdaptiveImagesCache extends MaintenanceTask
 
     public function execute()
     {
-        $cache_dir = dcCore::app()->blog->public_path . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR;
+        $cache_dir = App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR;
         if (is_dir($cache_dir)) {
             Files::deltree($cache_dir);
         }

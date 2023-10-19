@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\adaptiveImages;
 
 use ArrayObject;
 use dcCore;
+use Dotclear\App;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
 use Exception;
@@ -44,7 +45,7 @@ class FrontendBehaviors
             $ai = Core::getInstance();
 
             // Set properties
-            $ai->destDirectory  = $ai->realPath2relativePath(dcCore::app()->blog->public_path . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
+            $ai->destDirectory  = $ai->realPath2relativePath(App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
             $ai->onDemandImages = (bool) $settings->on_demand;  // @phpstan-ignore-line
 
             // Set options
