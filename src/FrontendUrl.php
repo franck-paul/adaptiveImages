@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
-use dcUrlHandlers;
 use Dotclear\App;
+use Dotclear\Core\Frontend\Url;
 use Exception;
 
-class FrontendUrl extends dcUrlHandlers
+class FrontendUrl extends Url
 {
     /**
      * URL handler for "on demand" adaptive images
@@ -37,7 +37,7 @@ class FrontendUrl extends dcUrlHandlers
 
         try {
             $AdaptiveImages->deliverBkptImage($args);
-        } catch (Exception $e) {
+        } catch (Exception) {
             self::p404();
         }
         exit;

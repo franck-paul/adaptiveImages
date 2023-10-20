@@ -17,12 +17,10 @@ $this->registerModule(
     '2.0',
     [
         'requires'    => [['core', '2.28']],
-        'permissions' => dcCore::app()->auth->makePermissions([
-            dcAuth::PERMISSION_ADMIN,
-        ]),
-        'type'     => 'plugin',
-        'priority' => 1001,
-        'settings' => [
+        'permissions' => 'My',
+        'type'        => 'plugin',
+        'priority'    => 1001,
+        'settings'    => [
             'blog' => '#params.adaptiveimages_settings',
         ],
 

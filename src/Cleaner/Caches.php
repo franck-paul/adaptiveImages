@@ -21,7 +21,6 @@ use Dotclear\Plugin\Uninstaller\{
     ActionDescriptor,
     CleanerDescriptor,
     CleanerParent,
-    ValueDescriptor
 };
 
 /**

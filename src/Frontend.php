@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Frontend extends Process
@@ -36,7 +36,9 @@ class Frontend extends Process
             return false;
         }
 
-        dcCore::app()->addBehavior('urlHandlerServeDocument', FrontendBehaviors::urlHandlerServeDocument(...));
+        App::behavior()->addBehaviors([
+            'urlHandlerServeDocument' => FrontendBehaviors::urlHandlerServeDocument(...),
+        ]);
 
         return true;
     }

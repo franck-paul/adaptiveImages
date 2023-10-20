@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\adaptiveImages;
 
 use ArrayObject;
-use dcCore;
 use Dotclear\App;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\File\Path;
@@ -32,7 +31,7 @@ class FrontendBehaviors
     {
         // Do not transform for feed and xlmrpc URLs
         $excluded = ['feed', 'xmlrpc'];
-        if (in_array(dcCore::app()->url->type, $excluded)) {
+        if (in_array(App::url()->type, $excluded)) {
             return '';
         }
 

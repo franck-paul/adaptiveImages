@@ -14,10 +14,9 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\adaptiveImages;
 
-use dcCore;
-use dcNamespace;
 use Dotclear\App;
 use Dotclear\Core\Process;
+use Dotclear\Interface\Core\BlogWorkspaceInterface;
 use Exception;
 
 class Install extends Process
@@ -34,16 +33,16 @@ class Install extends Process
         }
 
         try {
-            $old_version = dcCore::app()->getVersion(My::id());
+            $old_version = App::version()->getVersion(My::id());
             if (version_compare((string) $old_version, '1.0', '<')) {
                 // Rename settings namespace
                 if (App::blog()->settings()->exists('adaptiveimages')) {
-                    App::blog()->settings()->delNamespace(My::id());
-                    App::blog()->settings()->renNamespace('adaptiveimages', My::id());
+                    App::blog()->settings()->delWorkspace(My::id());
+                    App::blog()->settings()->renWorkspace('adaptiveimages', My::id());
                 }
 
                 // Change settings names (remove adaptiveimages_ prefix in them)
-                $rename = function (string $name, dcNamespace $settings): void {
+                $rename = function (string $name, BlogWorkspaceInterface $settings): void {
                     if ($settings->settingExists('adaptiveimages_' . $name, true)) {
                         $settings->rename('adaptiveimages_' . $name, $name);
                     }
@@ -54,7 +53,7 @@ class Install extends Process
                 }
             }
         } catch (Exception $e) {
-            dcCore::app()->error->add($e->getMessage());
+            App::error()->add($e->getMessage());
         }
 
         return true;
