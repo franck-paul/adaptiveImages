@@ -44,22 +44,22 @@ class FrontendBehaviors
             $ai = Core::getInstance();
 
             // Set properties
-            $ai->destDirectory  = $ai->realPath2relativePath(App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
-            $ai->onDemandImages = (bool) $settings->on_demand;  // @phpstan-ignore-line
+            $ai->setDestDirectory($ai->realPath2relativePath(App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR));
+            $ai->setOnDemandImages((bool) $settings->on_demand);
 
             // Set options
             if ($min_width_1x = (int) $settings->min_width_1x) {
-                $ai->minWidth1x = $min_width_1x;
+                $ai->setMinWidth1x($min_width_1x);
             }
             if (($lowsrc_jpg_bgcolor = $settings->lowsrc_jpg_bgcolor) != '') {
-                $ai->lowsrcJpgBgColor = $lowsrc_jpg_bgcolor;
+                $ai->setLowsrcJpgBgColor($lowsrc_jpg_bgcolor);
             }
             if (($default_bkpts = $settings->default_bkpts) != '') {
-                $ai->defaultBkpts = explode(',', $default_bkpts);
+                $ai->setDefaultBkpts(explode(',', $default_bkpts));
             }
 
             // Check cache directory
-            $cache_dir = Path::real($ai->destDirectory, false);
+            $cache_dir = Path::real($ai->getDestDirectory(), false);
             if ($cache_dir !== false && !is_dir($cache_dir)) {
                 Files::makeDir($cache_dir);
             }

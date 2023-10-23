@@ -43,6 +43,66 @@ class Core extends AdaptiveImages
     }
 
     /**
+     * Sets the destination directory.
+     *
+     * @param      string  $dir    The dir
+     */
+    public function setDestDirectory(string $dir): void
+    {
+        $this->destDirectory = $dir;
+    }
+
+    /**
+     * Gets the destination directory.
+     *
+     * @return     string  The destination directory.
+     */
+    public function getDestDirectory(): string
+    {
+        return $this->destDirectory;
+    }
+
+    /**
+     * Sets the On demand images flag
+     *
+     * @param      bool  $flag   The flag
+     */
+    public function setOnDemandImages(bool $flag): void
+    {
+        $this->onDemandImages = (int) $flag;
+    }
+
+    /**
+     * Sets the minimum width 1x.
+     *
+     * @param      int   $value  The value
+     */
+    public function setMinWidth1x(int $value): void
+    {
+        $this->minWidth1x = $value;
+    }
+
+    /**
+     * Sets the lowsrc jpg background color.
+     *
+     * @param      string  $value  The value
+     */
+    public function setLowsrcJpgBgColor(string $value): void
+    {
+        $this->lowsrcJpgBgColor = $value;
+    }
+
+    /**
+     * Sets the default bkpts.
+     *
+     * @param      array<array-key, string>  $value  The value
+     */
+    public function setDefaultBkpts(array $value): void
+    {
+        $this->defaultBkpts = array_map(fn ($v) => (int) $v, $value);
+    }
+
+    /**
      * Translate full path to relative path if possible
      *
      * @param string $path
