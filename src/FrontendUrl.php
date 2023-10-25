@@ -32,8 +32,7 @@ class FrontendUrl extends Url
          */
         $AdaptiveImages = Core::getInstance();
 
-        /* @phpstan-ignore-next-line */
-        $AdaptiveImages->destDirectory = $AdaptiveImages->realPath2relativePath(App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR);
+        $AdaptiveImages->setDestDirectory($AdaptiveImages->realPath2relativePath(App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR));
 
         try {
             $AdaptiveImages->deliverBkptImage($args);
