@@ -39,6 +39,7 @@ class FrontendUrl extends Url
         } catch (Exception) {
             self::p404();
         }
+
         exit;
     }
 }

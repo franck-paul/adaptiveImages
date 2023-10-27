@@ -42,7 +42,7 @@ class Install extends Process
                 }
 
                 // Change settings names (remove adaptiveimages_ prefix in them)
-                $rename = function (string $name, BlogWorkspaceInterface $settings): void {
+                $rename = static function (string $name, BlogWorkspaceInterface $settings) : void {
                     if ($settings->settingExists('adaptiveimages_' . $name, true)) {
                         $settings->rename('adaptiveimages_' . $name, $name);
                     }
@@ -52,8 +52,8 @@ class Install extends Process
                     $rename($name, $settings);
                 }
             }
-        } catch (Exception $e) {
-            App::error()->add($e->getMessage());
+        } catch (Exception $exception) {
+            App::error()->add($exception->getMessage());
         }
 
         return true;

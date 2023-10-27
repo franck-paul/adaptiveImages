@@ -170,13 +170,16 @@ class BackendBehaviors
         if ($c === '') {
             return '';
         }
+
         $c = strtoupper($c);
         if (preg_match('/^[A-F0-9]{3,6}$/', $c)) {
             $c = '#' . $c;
         }
+
         if (preg_match('/^#[A-F0-9]{6}$/', $c)) {
             return $c;
         }
+
         if (preg_match('/^#[A-F0-9]{3,}$/', $c)) {
             return '#' . substr($c, 1, 1) . substr($c, 1, 1) . substr($c, 2, 1) . substr($c, 2, 1) . substr($c, 3, 1) . substr($c, 3, 1);
         }
@@ -196,10 +199,13 @@ class BackendBehaviors
         if ($b === '') {
             return '';
         }
+
         $a = array_map('trim', explode(',', $b));
-        for ($i = 0; $i < count($a); $i++) {
+        $counter = count($a);
+        for ($i = 0; $i < $counter; ++$i) {
             $a[$i] = abs((int) $a[$i]);
         }
+
         $a = array_unique($a);
         sort($a, SORT_NUMERIC);
 

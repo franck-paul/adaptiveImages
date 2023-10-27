@@ -24,6 +24,7 @@ class Core extends AdaptiveImages
      * @var string
      */
     protected $media_url = '';
+
     /**
      * Path of public media folder
      * @var string
@@ -99,7 +100,7 @@ class Core extends AdaptiveImages
      */
     public function setDefaultBkpts(array $value): void
     {
-        $this->defaultBkpts = array_map(fn ($v) => (int) $v, $value);
+        $this->defaultBkpts = array_map(static fn($v) => (int) $v, $value);
     }
 
     /**
@@ -111,7 +112,7 @@ class Core extends AdaptiveImages
     public function realPath2relativePath($path)
     {
         $dir = dirname($_SERVER['SCRIPT_FILENAME']) . '/';
-        if (strncmp($path, $dir, strlen($dir)) == 0) {
+        if (str_starts_with($path, $dir)) {
             $path = substr($path, strlen($dir));
         }
 
@@ -131,10 +132,10 @@ class Core extends AdaptiveImages
     {
         $path = parent::URL2filepath($url);
         $base = $this->media_url;
-        if (strncmp($path, $base, strlen($base)) == 0) {
+        if (str_starts_with($path, $base)) {
             $path = $this->media_path . '/' . ltrim(substr($path, strlen($base)), '/');
             $path = str_replace('//', '/', $path);
-        } elseif (strncmp($url, '/', 1) == 0 && isset($_SERVER['DOCUMENT_ROOT'])) {
+        } elseif (str_starts_with($url, '/') && isset($_SERVER['DOCUMENT_ROOT'])) {
             $root = rtrim((string) $_SERVER['DOCUMENT_ROOT'], '/');
             $path = $root . $path;
         }
@@ -155,12 +156,12 @@ class Core extends AdaptiveImages
     {
         $url  = parent::filepath2URL($filepath);
         $base = $this->media_path;
-        if (strncmp($url, $base, strlen($base)) == 0) {
+        if (str_starts_with($url, $base)) {
             $url = $this->media_url . substr($url, strlen($base));
             $url = str_replace('//', '/', $url);
         } elseif (isset($_SERVER['DOCUMENT_ROOT'])) {
             $root = rtrim((string) $_SERVER['DOCUMENT_ROOT'], '/');
-            if (strncmp($url, $root, strlen($root)) == 0) {
+            if (str_starts_with($url, $root)) {
                 $url = substr($url, strlen($root));
             }
         }
@@ -182,7 +183,7 @@ class Core extends AdaptiveImages
      */
     protected function imgMarkupHook(&$markup, $originalClass, $originalStyle)
     {
-        if ((strpos((string) $originalStyle, 'display:block;') === false) && (strpos((string) $originalStyle, 'display: block;') === false)) {
+        if ((!str_contains((string) $originalStyle, 'display:block;')) && (!str_contains((string) $originalStyle, 'display: block;'))) {
             // Inline image
             $wrapper = 'span';
             $style   = '';
@@ -191,6 +192,7 @@ class Core extends AdaptiveImages
             $wrapper = 'div';
             $style   = ' text-align:center;';
         }
+
         $markup = sprintf('<%1$s class="%2$s" style="%3$s">%4$s</%1$s>', $wrapper, $originalClass, (string) $originalStyle . $style, $markup);
 
         return $markup;

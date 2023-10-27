@@ -14,7 +14,7 @@ $this->registerModule(
     'adaptiveImages',
     'Implements the 3-layers technique for Adaptive Images generation (by Nursit)',
     'Franck Paul and contributors',
-    '3.1',
+    '3.2',
     [
         'requires'    => [['core', '2.28']],
         'permissions' => 'My',

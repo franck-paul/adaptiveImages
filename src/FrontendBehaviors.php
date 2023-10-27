@@ -31,7 +31,7 @@ class FrontendBehaviors
     {
         // Do not transform for feed and xlmrpc URLs
         $excluded = ['feed', 'xmlrpc'];
-        if (in_array(App::url()->type, $excluded)) {
+        if (in_array(App::url()->getType(), $excluded)) {
             return '';
         }
 
@@ -48,12 +48,14 @@ class FrontendBehaviors
             $ai->setOnDemandImages((bool) $settings->on_demand);
 
             // Set options
-            if ($min_width_1x = (int) $settings->min_width_1x) {
+            if (($min_width_1x = (int) $settings->min_width_1x) !== 0) {
                 $ai->setMinWidth1x($min_width_1x);
             }
+
             if (($lowsrc_jpg_bgcolor = $settings->lowsrc_jpg_bgcolor) != '') {
                 $ai->setLowsrcJpgBgColor($lowsrc_jpg_bgcolor);
             }
+
             if (($default_bkpts = $settings->default_bkpts) != '') {
                 $ai->setDefaultBkpts(explode(',', $default_bkpts));
             }
@@ -63,6 +65,7 @@ class FrontendBehaviors
             if ($cache_dir !== false && !is_dir($cache_dir)) {
                 Files::makeDir($cache_dir);
             }
+
             if ($cache_dir === false || !is_writable($cache_dir)) {
                 throw new Exception('Adaptative Images cache directory is not writable.');
             }
