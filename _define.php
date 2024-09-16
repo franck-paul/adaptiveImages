@@ -26,6 +26,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=adaptivesImages',
         'support'    => 'https://github.com/franck-paul/adaptivesImages',
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/adaptivesImages/master/dcstore.xml',
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/adaptivesImages/main/dcstore.xml',
     ]
 );

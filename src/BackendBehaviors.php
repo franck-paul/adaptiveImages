@@ -200,7 +200,7 @@ class BackendBehaviors
             return '';
         }
 
-        $a = array_map('trim', explode(',', $b));
+        $a       = array_map('trim', explode(',', $b));
         $counter = count($a);
         for ($i = 0; $i < $counter; ++$i) {
             $a[$i] = abs((int) $a[$i]);
@@ -215,7 +215,7 @@ class BackendBehaviors
     /**
      * Check and return JPEG compression quality (0 to 100)
      *
-     * @param  string $q
+     * @param  string $q Compression quality
      *
      * @return integer
      */
