@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -111,7 +112,7 @@ class Core extends AdaptiveImages
      */
     public function realPath2relativePath($path)
     {
-        $dir = dirname($_SERVER['SCRIPT_FILENAME']) . '/';
+        $dir = dirname((string) $_SERVER['SCRIPT_FILENAME']) . '/';
         if (str_starts_with($path, $dir)) {
             $path = substr($path, strlen($dir));
         }
