@@ -22,15 +22,13 @@ class Core extends AdaptiveImages
 {
     /**
      * URL of public media folder
-     * @var string
      */
-    protected $media_url = '';
+    protected string $media_url = '';
 
     /**
      * Path of public media folder
-     * @var string
      */
-    protected $media_path = '';
+    protected string $media_path = '';
 
     /**
      * Constructor
@@ -101,7 +99,7 @@ class Core extends AdaptiveImages
      */
     public function setDefaultBkpts(array $value): void
     {
-        $this->defaultBkpts = array_map(static fn ($v) => (int) $v, $value);
+        $this->defaultBkpts = array_map(static fn ($v): int => (int) $v, $value);
     }
 
     /**
@@ -180,9 +178,8 @@ class Core extends AdaptiveImages
      * @param string $markup
      * @param string $originalClass
      * @param string $originalStyle
-     * @return mixed
      */
-    protected function imgMarkupHook(&$markup, $originalClass, $originalStyle)
+    protected function imgMarkupHook(&$markup, $originalClass, $originalStyle): string
     {
         if ((!str_contains((string) $originalStyle, 'display:block;')) && (!str_contains((string) $originalStyle, 'display: block;'))) {
             // Inline image
@@ -194,7 +191,7 @@ class Core extends AdaptiveImages
             $style   = ' text-align:center;';
         }
 
-        $markup = sprintf('<%1$s class="%2$s" style="%3$s">%4$s</%1$s>', $wrapper, $originalClass, (string) $originalStyle . $style, $markup);
+        $markup = sprintf('<%1$s class="%2$s" style="%3$s">%4$s</%1$s>', $wrapper, $originalClass, $originalStyle . $style, $markup);
 
         return $markup;
     }

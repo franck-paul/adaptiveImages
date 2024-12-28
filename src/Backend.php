@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -22,7 +23,8 @@ class Backend extends Process
     public static function init(): bool
     {
         // dead but useful code, in order to have translations
-        __('adaptiveImages') . __('Implements the 3-layers technique for Adaptive Images generation (by Nursit)');
+        __('adaptiveImages');
+        __('Implements the 3-layers technique for Adaptive Images generation (by Nursit)');
 
         return self::status(My::checkContext(My::BACKEND));
     }

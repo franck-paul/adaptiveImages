@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -71,7 +72,7 @@ class Caches extends CleanerParent
     public function execute(string $action, string $ns): bool
     {
         $cache_dir = implode(DIRECTORY_SEPARATOR, [App::blog()->publicPath(), My::CACHE]);
-        if ($action == 'delete') {
+        if ($action === 'delete') {
             if (is_dir($cache_dir)) {
                 Files::deltree($cache_dir);
             }

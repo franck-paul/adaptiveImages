@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -22,8 +23,6 @@ class FrontendUrl extends Url
 {
     /**
      * URL handler for "on demand" adaptive images
-     *
-     * @param null|string $args
      */
     public static function onDemand(?string $args): void
     {

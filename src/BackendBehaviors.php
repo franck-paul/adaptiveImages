@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -32,7 +33,6 @@ class BackendBehaviors
 {
     /**
      * dcMaintenanceInit Add cache emptying maintenance task
-     * @param  Maintenance $maintenance
      */
     public static function dcMaintenanceInit(Maintenance $maintenance): string
     {
@@ -216,8 +216,6 @@ class BackendBehaviors
      * Check and return JPEG compression quality (0 to 100)
      *
      * @param  string $q Compression quality
-     *
-     * @return integer
      */
     public static function adjustJPGQuality(string $q): int
     {
