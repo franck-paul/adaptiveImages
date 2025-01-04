@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -16,7 +17,7 @@ $this->registerModule(
     'Franck Paul and contributors',
     '3.3',
     [
-        'requires'    => [['core', '2.28']],
+        'requires'    => [['core', '2.33']],
         'permissions' => 'My',
         'type'        => 'plugin',
         'priority'    => 1001,

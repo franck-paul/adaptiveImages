@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -32,7 +33,7 @@ class AdaptiveImagesCache extends MaintenanceTask
         $this->description = __('It may be useful to empty this cache when modifying breakpoints or quality of JPEG compression. Notice : with some hosters, the adaptive images cache cannot be emptied with this plugin.');
     }
 
-    public function execute()
+    public function execute(): bool|int
     {
         $cache_dir = App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR;
         if (is_dir($cache_dir)) {
