@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -57,7 +58,7 @@ class FrontendBehaviors
             }
 
             if (($default_bkpts = $settings->default_bkpts) != '') {
-                $ai->setDefaultBkpts(explode(',', $default_bkpts));
+                $ai->setDefaultBkpts(explode(',', (string) $default_bkpts));
             }
 
             // Check cache directory
