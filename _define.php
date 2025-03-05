@@ -21,7 +21,7 @@ $this->registerModule(
         'requires'    => [['core', '2.33']],
         'permissions' => 'My',
         'type'        => 'plugin',
-        'priority'    => 1001,
+        'priority'    => 1010,  // Must be higher than dcLegacyEditor/dcCKEditor priority (ie 1000)
         'settings'    => [
             'blog' => '#params.adaptiveimages_settings',
         ],
@@ -29,5 +29,6 @@ $this->registerModule(
         'details'    => 'https://open-time.net/?q=adaptivesImages',
         'support'    => 'https://github.com/franck-paul/adaptivesImages',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/adaptivesImages/main/dcstore.xml',
+        'license'    => 'gpl2',
     ]
 );
