@@ -99,7 +99,7 @@ class Core extends AdaptiveImages
      */
     public function setDefaultBkpts(array $value): void
     {
-        $this->defaultBkpts = array_map(static fn ($v): int => (int) $v, $value);
+        $this->defaultBkpts = array_map(static fn (string $v): int => (int) $v, $value);
     }
 
     /**
