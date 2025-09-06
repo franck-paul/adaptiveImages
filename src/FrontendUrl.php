@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\adaptiveImages;
 
 use Dotclear\App;
-use Dotclear\Core\Frontend\Url;
+use Dotclear\Core\Url;
 use Exception;
 
 class FrontendUrl extends Url
