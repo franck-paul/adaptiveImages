@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief adaptiveImages, a plugin for Dotclear 2
  *
@@ -16,10 +17,12 @@ namespace Dotclear\Plugin\adaptiveImages;
 
 use Autoloader;
 use Dotclear\App;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 
-class Prepend extends Process
+class Prepend
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::PREPEND));
@@ -37,7 +40,7 @@ class Prepend extends Process
 
         // Add cleaners to Uninstaller
         App::behavior()->addBehaviors([
-            'UninstallerCleanersConstruct' => static function (\Dotclear\Plugin\Uninstaller\CleanersStack $cleaners) : void {
+            'UninstallerCleanersConstruct' => static function (\Dotclear\Plugin\Uninstaller\CleanersStack $cleaners): void {
                 $cleaners
                     ->set(new Cleaner\Caches())
                 ;
