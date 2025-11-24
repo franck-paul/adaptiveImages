@@ -200,7 +200,7 @@ class BackendBehaviors
             return '';
         }
 
-        $a       = array_map('trim', explode(',', $b));
+        $a       = array_map(trim(...), explode(',', $b));
         $counter = count($a);
         for ($i = 0; $i < $counter; ++$i) {
             $a[$i] = abs((int) $a[$i]);
