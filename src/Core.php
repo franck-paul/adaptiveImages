@@ -112,7 +112,7 @@ class Core extends AdaptiveImages
     {
         $dir = dirname((string) $_SERVER['SCRIPT_FILENAME']) . '/';
         if (str_starts_with($path, $dir)) {
-            $path = substr($path, strlen($dir));
+            return substr($path, strlen($dir));
         }
 
         return $path;
