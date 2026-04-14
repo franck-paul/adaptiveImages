@@ -8,7 +8,7 @@
  *
  * @author Franck Paul and contributors
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -35,7 +35,9 @@ class Core extends AdaptiveImages
      */
     protected function __construct()
     {
-        $this->media_url  = rtrim((string) App::blog()->settings()->system->public_url, '/') . '/';
+        $p_url = is_string($p_url = App::blog()->settings()->system->public_url) ? $p_url : '';
+
+        $this->media_url  = rtrim($p_url, '/') . '/';
         $this->media_path = App::blog()->publicPath();
         $this->media_path = $this->realPath2relativePath($this->media_path);
 
@@ -110,9 +112,12 @@ class Core extends AdaptiveImages
      */
     public function realPath2relativePath($path)
     {
-        $dir = dirname((string) $_SERVER['SCRIPT_FILENAME']) . '/';
-        if (str_starts_with($path, $dir)) {
-            return substr($path, strlen($dir));
+        $script_filename = is_string($script_filename = $_SERVER['SCRIPT_FILENAME']) ? $script_filename : '';
+        if ($script_filename !== '') {
+            $dir = dirname($script_filename) . '/';
+            if (str_starts_with($path, $dir)) {
+                return substr($path, strlen($dir));
+            }
         }
 
         return $path;
@@ -129,13 +134,15 @@ class Core extends AdaptiveImages
      */
     protected function URL2filepath($url)
     {
-        $path = parent::URL2filepath($url);
-        $base = $this->media_url;
+        $path          = parent::URL2filepath($url);
+        $base          = $this->media_url;
+        $document_root = isset($_SERVER['DOCUMENT_ROOT']) && is_string($document_root = $_SERVER['DOCUMENT_ROOT']) ? $document_root : '';
+
         if (str_starts_with($path, $base)) {
             $path = $this->media_path . '/' . ltrim(substr($path, strlen($base)), '/');
             $path = str_replace('//', '/', $path);
-        } elseif (str_starts_with($url, '/') && isset($_SERVER['DOCUMENT_ROOT'])) {
-            $root = rtrim((string) $_SERVER['DOCUMENT_ROOT'], '/');
+        } elseif (str_starts_with($url, '/') && $document_root !== '') {
+            $root = rtrim($document_root, '/');
             $path = $root . $path;
         }
 
@@ -153,13 +160,15 @@ class Core extends AdaptiveImages
      */
     protected function filepath2URL($filepath, $relative = false)
     {
-        $url  = parent::filepath2URL($filepath);
-        $base = $this->media_path;
+        $url           = parent::filepath2URL($filepath);
+        $base          = $this->media_path;
+        $document_root = isset($_SERVER['DOCUMENT_ROOT']) && is_string($document_root = $_SERVER['DOCUMENT_ROOT']) ? $document_root : '';
+
         if (str_starts_with($url, $base)) {
             $url = $this->media_url . substr($url, strlen($base));
             $url = str_replace('//', '/', $url);
-        } elseif (isset($_SERVER['DOCUMENT_ROOT'])) {
-            $root = rtrim((string) $_SERVER['DOCUMENT_ROOT'], '/');
+        } elseif ($document_root !== '') {
+            $root = rtrim($document_root, '/');
             if (str_starts_with($url, $root)) {
                 $url = substr($url, strlen($root));
             }

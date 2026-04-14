@@ -8,7 +8,7 @@
  *
  * @author Franck Paul and contributors
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -36,6 +36,10 @@ class FrontendBehaviors
             return '';
         }
 
+        // Variable data helpers
+        $_Int = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
+        $_Str = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
+
         $settings = My::settings();
 
         if ($settings->enabled) {
@@ -49,16 +53,16 @@ class FrontendBehaviors
             $ai->setOnDemandImages((bool) $settings->on_demand);
 
             // Set options
-            if (($min_width_1x = (int) $settings->min_width_1x) !== 0) {
+            if (($min_width_1x = $_Int($settings->min_width_1x)) !== 0) {
                 $ai->setMinWidth1x($min_width_1x);
             }
 
-            if (($lowsrc_jpg_bgcolor = $settings->lowsrc_jpg_bgcolor) != '') {
+            if (($lowsrc_jpg_bgcolor = $_Str($settings->lowsrc_jpg_bgcolor)) !== '') {
                 $ai->setLowsrcJpgBgColor($lowsrc_jpg_bgcolor);
             }
 
-            if (($default_bkpts = $settings->default_bkpts) != '') {
-                $ai->setDefaultBkpts(explode(',', (string) $default_bkpts));
+            if (($default_bkpts = $_Str($settings->default_bkpts)) !== '') {
+                $ai->setDefaultBkpts(explode(',', $default_bkpts));
             }
 
             // Check cache directory
@@ -72,8 +76,9 @@ class FrontendBehaviors
             }
 
             // Do transformation
-            $max_width_1x      = (int) $settings->max_width_1x;
-            $html              = $ai->adaptHTMLPage($result['content'], ($max_width_1x ?: null));
+            $max_width_1x      = $_Int($settings->max_width_1x);
+            $content           = is_string($content = $result['content']) ? $content : '';
+            $html              = $ai->adaptHTMLPage($content, ($max_width_1x ?: null));
             $result['content'] = $html;
         }
 

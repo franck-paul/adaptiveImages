@@ -8,7 +8,7 @@
  *
  * @author Franck Paul and contributors
  *
- * @copyright Franck Paul carnet.franck.paul@gmail.com
+ * @copyright Franck Paul contact@open-time.net
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
 declare(strict_types=1);
@@ -46,6 +46,10 @@ class BackendBehaviors
      */
     public static function adminBlogPreferencesFormV2(): string
     {
+        // Variable data helpers
+        $_Int = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
+        $_Str = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
+
         $settings = My::settings();
 
         // Add fieldset for plugin options
@@ -54,7 +58,7 @@ class BackendBehaviors
         ->legend((new Legend(__('Adaptive Images'))))
         ->fields([
             (new Para())->items([
-                (new Checkbox('adaptiveimages_enabled', $settings->enabled))
+                (new Checkbox('adaptiveimages_enabled', (bool) $settings->enabled))
                     ->value(1)
                     ->label((new Label(__('Enable Adaptive Images'), Label::INSIDE_TEXT_AFTER))),
             ]),
@@ -62,7 +66,7 @@ class BackendBehaviors
                 (new Div())->class('col')->items([
                     (new Text('h5', __('Options'))),
                     (new Para())->items([
-                        (new Number('adaptiveimages_max_width_1x', 0, 9_999_999, (int) $settings->max_width_1x))
+                        (new Number('adaptiveimages_max_width_1x', 0, 9_999_999, $_Int($settings->max_width_1x)))
                             ->default(640)
                             ->label((new Label(__('Default maximum display width for images:'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
@@ -70,7 +74,7 @@ class BackendBehaviors
                         (new Text(null, __('The Default maximum display width for images is 640 pixels.'))),
                     ]),
                     (new Para())->items([
-                        (new Number('adaptiveimages_min_width_1x', 0, 9_999_999, (int) $settings->min_width_1x))
+                        (new Number('adaptiveimages_min_width_1x', 0, 9_999_999, $_Int($settings->min_width_1x)))
                             ->default(320)
                             ->label((new Label(__('Default minimum display width for images:'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
@@ -79,7 +83,7 @@ class BackendBehaviors
                     ]),
 
                     (new Para())->items([
-                        (new Color('adaptiveimages_lowsrc_jpg_bgcolor', $settings->lowsrc_jpg_bgcolor))
+                        (new Color('adaptiveimages_lowsrc_jpg_bgcolor', $_Str($settings->lowsrc_jpg_bgcolor)))
                             ->default('#ffffff')
                             ->label((new Label(__('Backgound color for JPG images produced from transparent one:'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
@@ -90,22 +94,22 @@ class BackendBehaviors
                 (new Div())->class('col')->items([
                     (new Text('h5', __('JPEG compression quality (0 to 100):'))),
                     (new Para())->items([
-                        (new Number('adaptiveimages_lowsrc_jpg_quality', 0, 100, (int) $settings->lowsrc_jpg_quality))
+                        (new Number('adaptiveimages_lowsrc_jpg_quality', 0, 100, $_Int($settings->lowsrc_jpg_quality)))
                             ->default(10)
                             ->label((new Label(__('Preview images (10 by default):'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
                     (new Para())->items([
-                        (new Number('adaptiveimages_x10_jpg_quality', 0, 100, (int) $settings->x10_jpg_quality))
+                        (new Number('adaptiveimages_x10_jpg_quality', 0, 100, $_Int($settings->x10_jpg_quality)))
                             ->default(75)
                             ->label((new Label(__('Standard images (75 by default):'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
                     (new Para())->items([
-                        (new Number('adaptiveimages_x15_jpg_quality', 0, 100, (int) $settings->x15_jpg_quality))
+                        (new Number('adaptiveimages_x15_jpg_quality', 0, 100, $_Int($settings->x15_jpg_quality)))
                             ->default(65)
                             ->label((new Label(__('1.5x images (65 by default):'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
                     (new Para())->items([
-                        (new Number('adaptiveimages_x20_jpg_quality', 0, 100, (int) $settings->x20_jpg_quality))
+                        (new Number('adaptiveimages_x20_jpg_quality', 0, 100, $_Int($settings->x20_jpg_quality)))
                             ->default(45)
                             ->label((new Label(__('2x images: (45 by default):'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
@@ -113,7 +117,7 @@ class BackendBehaviors
             ]),
             (new Text('h5', __('Advanced options'))),
             (new Para())->items([
-                (new Checkbox('adaptiveimages_on_demand', $settings->on_demand))
+                (new Checkbox('adaptiveimages_on_demand', (bool) $settings->on_demand))
                     ->value(1)
                     ->label((new Label(__('Deliver adaptive images on demand'), Label::INSIDE_TEXT_AFTER))),
             ]),
@@ -124,7 +128,7 @@ class BackendBehaviors
                 (new Input('adaptiveimages_default_bkpts'))
                     ->size(40)
                     ->maxlength(40)
-                    ->value($settings->default_bkpts)
+                    ->value($_Str($settings->default_bkpts))
                     ->default('160,320,480,640,960,1440')
                     ->label((new Label(__('Breakpoints (in pixel) for image generation (comma saparated values):'), Label::INSIDE_TEXT_BEFORE))),
             ]),
@@ -142,18 +146,23 @@ class BackendBehaviors
      */
     public static function adminBeforeBlogSettingsUpdate(): string
     {
+        // Post data helpers
+        $_Bool = fn (string $name): bool => !empty($_POST[$name]);
+        $_Int  = fn (string $name, int $default = 0): int => isset($_POST[$name]) && is_numeric($val = $_POST[$name]) ? (int) $val : $default;
+        $_Str  = fn (string $name, string $default = ''): string => isset($_POST[$name]) && is_string($val = $_POST[$name]) ? $val : $default;
+
         $settings = My::settings();
 
-        $settings->put('enabled', !empty($_POST['adaptiveimages_enabled']), App::blogWorkspace()::NS_BOOL);
-        $settings->put('max_width_1x', abs((int) $_POST['adaptiveimages_max_width_1x']), App::blogWorkspace()::NS_INT);
-        $settings->put('min_width_1x', abs((int) $_POST['adaptiveimages_min_width_1x']), App::blogWorkspace()::NS_INT);
-        $settings->put('lowsrc_jpg_bgcolor', self::adjustColor($_POST['adaptiveimages_lowsrc_jpg_bgcolor']), App::blogWorkspace()::NS_STRING);
-        $settings->put('on_demand', !empty($_POST['adaptiveimages_on_demand']), App::blogWorkspace()::NS_BOOL);
-        $settings->put('default_bkpts', self::adjustBreakpoints($_POST['adaptiveimages_default_bkpts']), App::blogWorkspace()::NS_STRING);
-        $settings->put('lowsrc_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_lowsrc_jpg_quality']), App::blogWorkspace()::NS_INT);
-        $settings->put('x10_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x10_jpg_quality']), App::blogWorkspace()::NS_INT);
-        $settings->put('x15_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x15_jpg_quality']), App::blogWorkspace()::NS_INT);
-        $settings->put('x20_jpg_quality', self::adjustJPGQuality($_POST['adaptiveimages_x20_jpg_quality']), App::blogWorkspace()::NS_INT);
+        $settings->put('enabled', $_Bool('adaptiveimages_enabled'), App::blogWorkspace()::NS_BOOL);
+        $settings->put('max_width_1x', abs($_Int('adaptiveimages_max_width_1x')), App::blogWorkspace()::NS_INT);
+        $settings->put('min_width_1x', abs($_Int('adaptiveimages_min_width_1x')), App::blogWorkspace()::NS_INT);
+        $settings->put('lowsrc_jpg_bgcolor', self::adjustColor($_Str('adaptiveimages_lowsrc_jpg_bgcolor')), App::blogWorkspace()::NS_STRING);
+        $settings->put('on_demand', $_Bool('adaptiveimages_on_demand'), App::blogWorkspace()::NS_BOOL);
+        $settings->put('default_bkpts', self::adjustBreakpoints($_Str('adaptiveimages_default_bkpts')), App::blogWorkspace()::NS_STRING);
+        $settings->put('lowsrc_jpg_quality', self::adjustJPGQuality($_Int('adaptiveimages_lowsrc_jpg_quality')), App::blogWorkspace()::NS_INT);
+        $settings->put('x10_jpg_quality', self::adjustJPGQuality($_Int('adaptiveimages_x10_jpg_quality')), App::blogWorkspace()::NS_INT);
+        $settings->put('x15_jpg_quality', self::adjustJPGQuality($_Int('adaptiveimages_x15_jpg_quality')), App::blogWorkspace()::NS_INT);
+        $settings->put('x20_jpg_quality', self::adjustJPGQuality($_Int('adaptiveimages_x20_jpg_quality')), App::blogWorkspace()::NS_INT);
 
         return '';
     }
@@ -215,14 +224,10 @@ class BackendBehaviors
     /**
      * Check and return JPEG compression quality (0 to 100)
      *
-     * @param  string $q Compression quality
+     * @param  int $q Compression quality
      */
-    public static function adjustJPGQuality(string $q): int
+    public static function adjustJPGQuality(int $q): int
     {
-        if ($q === '') {
-            return 0;
-        }
-
-        return min(100, abs((int) $q));
+        return min(100, abs($q));
     }
 }
