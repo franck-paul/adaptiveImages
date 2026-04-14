@@ -15,9 +15,9 @@ $this->registerModule(
     'adaptiveImages',
     'Implements the 3-layers technique for Adaptive Images generation (by Nursit)',
     'Franck Paul and contributors',
-    '5.2',
+    '5.3',
     [
-        'date'        => '2025-11-24T09:07:46+0100',
+        'date'        => '2026-04-14T16:47:30+0200',
         'requires'    => [['core', '2.36']],
         'permissions' => 'My',
         'type'        => 'plugin',
