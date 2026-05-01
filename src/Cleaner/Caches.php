@@ -49,11 +49,17 @@ class Caches extends CleanerParent
         ));
     }
 
+    /**
+     * @return array{}
+     */
     public function distributed(): array
     {
         return [];
     }
 
+    /**
+     * @return array{}
+     */
     public function values(): array
     {
         /* Seems not necessary:
