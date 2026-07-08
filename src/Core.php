@@ -35,9 +35,9 @@ class Core extends AdaptiveImages
      */
     protected function __construct()
     {
-        $p_url = is_string($p_url = App::blog()->settings()->system->public_url) ? $p_url : '';
+        $p_url = App::blog()->settings()->get('system')->getStr('public_url', false);
 
-        $this->media_url  = rtrim($p_url, '/') . '/';
+        $this->media_url  = rtrim((string) $p_url, '/') . '/';
         $this->media_path = App::blog()->publicPath();
         $this->media_path = $this->realPath2relativePath($this->media_path);
 

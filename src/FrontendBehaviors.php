@@ -36,13 +36,9 @@ class FrontendBehaviors
             return '';
         }
 
-        // Variable data helpers
-        $_Int = fn (mixed $var, int $default = 0): int => $var !== null && is_numeric($val = $var) ? (int) $val : $default;
-        $_Str = fn (mixed $var, string $default = ''): string => $var !== null && is_string($val = $var) ? $val : $default;
-
         $settings = My::settings();
 
-        if ($settings->enabled) {
+        if ($settings->getBool('enabled', false)) {
             /**
              * @var        Core
              */
@@ -50,18 +46,18 @@ class FrontendBehaviors
 
             // Set properties
             $ai->setDestDirectory($ai->realPath2relativePath(App::blog()->publicPath() . DIRECTORY_SEPARATOR . My::CACHE . DIRECTORY_SEPARATOR));
-            $ai->setOnDemandImages((bool) $settings->on_demand);
+            $ai->setOnDemandImages($settings->getBool('on_demand', false));
 
             // Set options
-            if (($min_width_1x = $_Int($settings->min_width_1x)) !== 0) {
+            if (($min_width_1x = $settings->getInt('min_width_1x', false)) !== 0) {
                 $ai->setMinWidth1x($min_width_1x);
             }
 
-            if (($lowsrc_jpg_bgcolor = $_Str($settings->lowsrc_jpg_bgcolor)) !== '') {
+            if (($lowsrc_jpg_bgcolor = $settings->getStr('lowsrc_jpg_bgcolor', false)) !== '') {
                 $ai->setLowsrcJpgBgColor($lowsrc_jpg_bgcolor);
             }
 
-            if (($default_bkpts = $_Str($settings->default_bkpts)) !== '') {
+            if (($default_bkpts = $settings->getStr('default_bkpts', false)) !== '') {
                 $ai->setDefaultBkpts(explode(',', $default_bkpts));
             }
 
@@ -76,7 +72,7 @@ class FrontendBehaviors
             }
 
             // Do transformation
-            $max_width_1x      = $_Int($settings->max_width_1x);
+            $max_width_1x      = $settings->getInt('max_width_1x', false);
             $content           = is_string($content = $result['content']) ? $content : '';
             $html              = $ai->adaptHTMLPage($content, ($max_width_1x ?: null));
             $result['content'] = $html;
