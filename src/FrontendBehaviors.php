@@ -31,8 +31,7 @@ class FrontendBehaviors
     public static function urlHandlerServeDocument(ArrayObject $result): string
     {
         // Do not transform for feed and xlmrpc URLs
-        $excluded = ['feed', 'xmlrpc'];
-        if (in_array(App::url()->getType(), $excluded)) {
+        if (App::url()->isType(['feed', 'xmlrpc'])) {
             return '';
         }
 
