@@ -23,12 +23,12 @@ class Core extends AdaptiveImages
     /**
      * URL of public media folder
      */
-    protected string $media_url = '';
+    protected string $media_url;
 
     /**
      * Path of public media folder
      */
-    protected string $media_path = '';
+    protected string $media_path;
 
     /**
      * Constructor
