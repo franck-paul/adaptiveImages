@@ -22,5 +22,8 @@ use Dotclear\Module\MyPlugin;
  */
 class My extends MyPlugin
 {
+    /**
+     * @var string CACHE
+     */
     public const CACHE = '.adapt-img';
 }
