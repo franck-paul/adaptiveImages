@@ -40,8 +40,8 @@ class Prepend
 
         // Add cleaners to Uninstaller
         App::behavior()->addBehaviors([
-            'UninstallerCleanersConstruct' => static function (\Dotclear\Plugin\Uninstaller\CleanersStack $cleaners): void {
-                $cleaners
+            'UninstallerCleanersConstruct' => static function (\Dotclear\Plugin\Uninstaller\CleanersStack $cleanersStack): void {
+                $cleanersStack
                     ->set(new Cleaner\Caches())
                 ;
             }]);

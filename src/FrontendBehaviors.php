@@ -26,9 +26,9 @@ class FrontendBehaviors
     /**
      * Behaviour called before serving HTML/XML document
      *
-     * @param ArrayObject<string, mixed> $result
+     * @param ArrayObject<string, mixed> $arrayObject
      */
-    public static function urlHandlerServeDocument(ArrayObject $result): string
+    public static function urlHandlerServeDocument(ArrayObject $arrayObject): string
     {
         // Do not transform for feed and xlmrpc URLs
         if (App::url()->isType(['feed', 'xmlrpc'])) {
@@ -71,10 +71,10 @@ class FrontendBehaviors
             }
 
             // Do transformation
-            $max_width_1x      = $settings->getInt('max_width_1x', false);
-            $content           = is_string($content = $result['content']) ? $content : '';
-            $html              = $ai->adaptHTMLPage($content, ($max_width_1x ?: null));
-            $result['content'] = $html;
+            $max_width_1x           = $settings->getInt('max_width_1x', false);
+            $content                = is_string($content = $arrayObject['content']) ? $content : '';
+            $html                   = $ai->adaptHTMLPage($content, ($max_width_1x ?: null));
+            $arrayObject['content'] = $html;
         }
 
         return '';

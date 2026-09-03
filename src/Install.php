@@ -45,9 +45,9 @@ class Install
                 }
 
                 // Change settings names (remove adaptiveimages_ prefix in them)
-                $rename = static function (string $name, BlogWorkspaceInterface $settings): void {
-                    if ($settings->settingExists('adaptiveimages_' . $name, true)) {
-                        $settings->rename('adaptiveimages_' . $name, $name);
+                $rename = static function (string $name, BlogWorkspaceInterface $blogWorkspace): void {
+                    if ($blogWorkspace->settingExists('adaptiveimages_' . $name, true)) {
+                        $blogWorkspace->rename('adaptiveimages_' . $name, $name);
                     }
                 };
                 $settings = My::settings();
