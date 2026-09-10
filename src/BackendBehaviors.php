@@ -23,6 +23,7 @@ use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Number;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Text;
@@ -66,26 +67,26 @@ class BackendBehaviors
                             ->default(640)
                             ->label((new Label(__('Default maximum display width for images:'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
-                    (new Para())->class(['form-note', 'clear'])->items([
-                        (new Text(null, __('The Default maximum display width for images is 640 pixels.'))),
-                    ]),
+                    (new Note())
+                        ->class('form-note')
+                        ->text(__('The Default maximum display width for images is 640 pixels.')),
                     (new Para())->items([
                         (new Number('adaptiveimages_min_width_1x', 0, 9_999_999, $settings->getInt('min_width_1x', false)))
                             ->default(320)
                             ->label((new Label(__('Default minimum display width for images:'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
-                    (new Para())->class(['form-note', 'clear'])->items([
-                        (new Text(null, __('Smaller images will be unchanged (320 pixels by default).'))),
-                    ]),
+                    (new Note())
+                        ->class('form-note')
+                        ->text(__('Smaller images will be unchanged (320 pixels by default).')),
 
                     (new Para())->items([
                         (new Color('adaptiveimages_lowsrc_jpg_bgcolor', $settings->getStr('lowsrc_jpg_bgcolor', false)))
                             ->default('#ffffff')
                             ->label((new Label(__('Backgound color for JPG images produced from transparent one:'), Label::INSIDE_TEXT_BEFORE))),
                     ]),
-                    (new Para())->class(['form-note', 'clear'])->items([
-                        (new Text(null, __('Usually the same background color as your blog (#ffffff by default).'))),
-                    ]),
+                    (new Note())
+                        ->class('form-note')
+                        ->text(__('Usually the same background color as your blog (#ffffff by default).')),
                 ]),
                 (new Div())->class('col')->items([
                     (new Text('h5', __('JPEG compression quality (0 to 100):'))),
@@ -117,9 +118,9 @@ class BackendBehaviors
                     ->value(1)
                     ->label((new Label(__('Deliver adaptive images on demand'), Label::INSIDE_TEXT_AFTER))),
             ]),
-            (new Para())->class(['form-note', 'clear', 'warn'])->items([
-                (new Text(null, __('Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!'))),
-            ]),
+            (new Note())
+                ->class('form-note')
+                ->text(__('Warning, this option needs an Apache RewriteRule or equivalent (see README.md)!')),
             (new Para())->items([
                 (new Input('adaptiveimages_default_bkpts'))
                     ->size(40)
@@ -128,9 +129,9 @@ class BackendBehaviors
                     ->default('160,320,480,640,960,1440')
                     ->label((new Label(__('Breakpoints (in pixel) for image generation (comma saparated values):'), Label::INSIDE_TEXT_BEFORE))),
             ]),
-            (new Para())->class(['form-note', 'clear'])->items([
-                (new Text(null, __('By default: 160,320,480,640,960,1440.'))),
-            ]),
+            (new Note())
+                ->class('form-note')
+                ->text(__('By default: 160,320,480,640,960,1440.')),
         ])
         ->render();
 
