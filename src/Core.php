@@ -129,11 +129,12 @@ class Core extends AdaptiveImages
      * Should be overriden depending of your URL mapping rules vs DOCUMENT_ROOT
      * can also remap Absolute URL of current website to filesystem path
      *
-     * @param string $url
+     * @param mixed $url
      * @return string
      */
     protected function URL2filepath($url)
     {
+        $url           = is_string($url) ? $url : '';
         $path          = parent::URL2filepath($url);
         $base          = $this->media_url;
         $document_root = isset($_SERVER['DOCUMENT_ROOT']) && is_string($document_root = $_SERVER['DOCUMENT_ROOT']) ? $document_root : '';
