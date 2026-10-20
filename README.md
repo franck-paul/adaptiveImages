@@ -3,7 +3,7 @@ AdaptiveImages
 [![Release](https://img.shields.io/github/v/release/franck-paul/adaptiveImages)](https://github.com/franck-paul/adaptiveImages/releases)
 [![Date](https://img.shields.io/github/release-date/franck-paul/adaptiveImages)](https://github.com/franck-paul/adaptiveImages/releases)
 [![Issues](https://img.shields.io/github/issues/franck-paul/adaptiveImages)](https://github.com/franck-paul/adaptiveImages/issues)
-[![License](https://img.shields.io/github/license/franck-paul/adaptiveImages)](https://github.com/franck-paul/adaptiveImages/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/franck-paul/adaptiveImages)](https://github.com/franck-paul/adaptiveImages/blob/main/LICENSE)
 
 ==============
 
