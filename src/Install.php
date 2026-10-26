@@ -37,7 +37,7 @@ class Install
 
         try {
             $old_version = App::version()->getVersion(My::id());
-            if (version_compare((string) $old_version, '1.0', '<')) {
+            if (version_compare($old_version, '1.0', '<')) {
                 // Rename settings namespace
                 if (App::blog()->settings()->exists('adaptiveimages')) {
                     App::blog()->settings()->delWorkspace(My::id());

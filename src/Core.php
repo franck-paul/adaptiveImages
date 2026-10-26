@@ -37,7 +37,7 @@ class Core extends AdaptiveImages
     {
         $p_url = App::blog()->settings()->get('system')->getStr('public_url', false);
 
-        $this->media_url  = rtrim((string) $p_url, '/') . '/';
+        $this->media_url  = rtrim($p_url, '/') . '/';
         $this->media_path = App::blog()->publicPath();
         $this->media_path = $this->realPath2relativePath($this->media_path);
 
@@ -191,7 +191,7 @@ class Core extends AdaptiveImages
      */
     protected function imgMarkupHook(&$markup, $originalClass, $originalStyle): string
     {
-        if ((!str_contains((string) $originalStyle, 'display:block;')) && (!str_contains((string) $originalStyle, 'display: block;'))) {
+        if ((!str_contains($originalStyle, 'display:block;')) && (!str_contains($originalStyle, 'display: block;'))) {
             // Inline image
             $wrapper = 'span';
             $style   = '';
