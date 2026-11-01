@@ -178,15 +178,15 @@ class BackendBehaviors
         }
 
         $c = strtoupper($c);
-        if (preg_match('/^[A-F0-9]{3,6}$/', $c)) {
+        if ((bool) preg_match('/^[A-F0-9]{3,6}$/', $c)) {
             $c = '#' . $c;
         }
 
-        if (preg_match('/^#[A-F0-9]{6}$/', $c)) {
+        if ((bool) preg_match('/^#[A-F0-9]{6}$/', $c)) {
             return $c;
         }
 
-        if (preg_match('/^#[A-F0-9]{3,}$/', $c)) {
+        if ((bool) preg_match('/^#[A-F0-9]{3,}$/', $c)) {
             return '#' . substr($c, 1, 1) . substr($c, 1, 1) . substr($c, 2, 1) . substr($c, 2, 1) . substr($c, 3, 1) . substr($c, 3, 1);
         }
 
