@@ -62,11 +62,11 @@ class FrontendBehaviors
 
             // Check cache directory
             $cache_dir = Path::real($ai->getDestDirectory(), false);
-            if ($cache_dir !== false && !is_dir($cache_dir)) {
+            if ($cache_dir !== '' && !is_dir($cache_dir)) {
                 Files::makeDir($cache_dir);
             }
 
-            if ($cache_dir === false || !is_writable($cache_dir)) {
+            if ($cache_dir === '' || !is_writable($cache_dir)) {
                 throw new Exception('Adaptative Images cache directory is not writable.');
             }
 
