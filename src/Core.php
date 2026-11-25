@@ -106,11 +106,8 @@ class Core extends AdaptiveImages
 
     /**
      * Translate full path to relative path if possible
-     *
-     * @param string $path
-     * @return string
      */
-    public function realPath2relativePath($path)
+    public function realPath2relativePath(string $path): string
     {
         $script_filename = is_string($script_filename = $_SERVER['SCRIPT_FILENAME']) ? $script_filename : '';
         if ($script_filename !== '') {
@@ -128,11 +125,8 @@ class Core extends AdaptiveImages
      * By default just remove existing timestamp
      * Should be overriden depending of your URL mapping rules vs DOCUMENT_ROOT
      * can also remap Absolute URL of current website to filesystem path
-     *
-     * @param mixed $url
-     * @return string
      */
-    protected function URL2filepath($url)
+    protected function URL2filepath(mixed $url): string
     {
         $url           = is_string($url) ? $url : '';
         $path          = parent::URL2filepath($url);
@@ -157,9 +151,8 @@ class Core extends AdaptiveImages
      * can map URL on specific domain (domain sharding for Webperf purpose)
      *
      * @param string $filepath
-     * @return string
      */
-    protected function filepath2URL($filepath, $relative = false)
+    protected function filepath2URL($filepath, $relative = false): string
     {
         $url           = parent::filepath2URL($filepath);
         $base          = $this->media_path;
